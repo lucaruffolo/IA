@@ -1,4 +1,16 @@
 package main;
+import it.unical.mat.embasp.base.Handler;
+import it.unical.mat.embasp.base.InputProgram;
+import it.unical.mat.embasp.base.Output;
+import it.unical.mat.embasp.languages.IllegalAnnotationException;
+import it.unical.mat.embasp.languages.ObjectNotValidException;
+import it.unical.mat.embasp.languages.asp.ASPInputProgram;
+import it.unical.mat.embasp.languages.asp.ASPMapper;
+import it.unical.mat.embasp.languages.asp.AnswerSet;
+import it.unical.mat.embasp.languages.asp.AnswerSets;
+import it.unical.mat.embasp.platforms.desktop.DesktopHandler;
+import it.unical.mat.embasp.specializations.dlv.desktop.DLVDesktopService;
+import it.unical.mat.embasp.specializations.dlv2.desktop.DLV2DesktopService;
 
 import graphic.Game;
 import graphic.PacmanGraphics;
@@ -8,14 +20,13 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
-import logic.Blue_Player;
-import logic.Player;
+
 import menu.MenuIniziale;
 
 public class Main extends Application {
 
 	public static Stage window;
-	public static Player player = new Blue_Player();
+	//public static Player player = new Blue_Player();
 
 	@Override
 	public void start(Stage primaryStage) throws Exception {
