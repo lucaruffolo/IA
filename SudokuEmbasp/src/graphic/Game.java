@@ -138,18 +138,4 @@ public class Game {
 	}
 
  
-	
-	/*	int x = 0;
-		int y = 0;
-		if (player == 1) {
-			x = xBlue;
-			y = yBlue;
-		} else if (player == 2) {
-			x = xPurple;
-			y = yPurple;
-		}
-		 else if (player == 3) {
-			x = xYellow;
-			y = yYellow;
-		}*/
 }
