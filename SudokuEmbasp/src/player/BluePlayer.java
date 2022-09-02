@@ -1,11 +1,11 @@
-package graphic;
+package player;
 
-public class YellowPlayer {
+public class BluePlayer {
 	int x;
 	int y;
 	
 	
-	public YellowPlayer(int x, int y) {
+	public BluePlayer(int x, int y) {
 		super();
 		this.x = x;
 		this.y = y;

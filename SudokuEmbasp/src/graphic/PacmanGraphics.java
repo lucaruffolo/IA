@@ -29,37 +29,68 @@ public class PacmanGraphics extends StackPane {
 		// disegno i player e do priorità a quello scelto cosi da tenerlo sempre in vista
 		if (Game.selectedPlayer == Block.BLUE_PLAYER) {	
 		canvas.getGraphicsContext2D().setFill(Color.PURPLE);
-		canvas.getGraphicsContext2D().fillOval(Game.PurplePlayer.getX()* Settings.block, Game.PurplePlayer.getY()* Settings.block, Settings.block, Settings.block);		
+		canvas.getGraphicsContext2D().fillOval(Game.purplePlayer.getX()* Settings.block, Game.purplePlayer.getY()* Settings.block, Settings.block, Settings.block);		
 		canvas.getGraphicsContext2D().setFill(Color.YELLOW);
-		canvas.getGraphicsContext2D().fillOval(Game.YellowPlayer.getX()* Settings.block, Game.YellowPlayer.getY()* Settings.block, Settings.block, Settings.block);
+		canvas.getGraphicsContext2D().fillOval(Game.yellowPlayer.getX()* Settings.block, Game.yellowPlayer.getY()* Settings.block, Settings.block, Settings.block);
+
+			
+		canvas.getGraphicsContext2D().setFill(Color.PURPLE);
+		canvas.getGraphicsContext2D().fillRect(Game.purpleBlock.getX()* Settings.block, Game.purpleBlock.getY()* Settings.block, Settings.block, Settings.block);
+		canvas.getGraphicsContext2D().setFill(Color.YELLOW);
+		canvas.getGraphicsContext2D().fillRect(Game.yellowBlock.getX()* Settings.block, Game.yellowBlock.getY()* Settings.block, Settings.block, Settings.block);
+		
 		canvas.getGraphicsContext2D().setFill(Color.BLUE);
-		canvas.getGraphicsContext2D().fillOval(Game.BluePlayer.getX()* Settings.block, Game.BluePlayer.getY()* Settings.block,  Settings.block,   Settings.block);
+		canvas.getGraphicsContext2D().fillOval(Game.bluePlayer.getX()* Settings.block, Game.bluePlayer.getY()* Settings.block,  Settings.block,   Settings.block);
+		canvas.getGraphicsContext2D().setFill(Color.BLUE);
+		canvas.getGraphicsContext2D().fillRect(Game.blueBlock.getX()* Settings.block, Game.blueBlock.getY()* Settings.block,  Settings.block,   Settings.block);	
 		} else if (Game.selectedPlayer == Block.YELLOW_PLAYER) {
 			canvas.getGraphicsContext2D().setFill(Color.PURPLE);
-			canvas.getGraphicsContext2D().fillOval(Game.PurplePlayer.getX()* Settings.block, Game.PurplePlayer.getY()* Settings.block, Settings.block, Settings.block);	
+			canvas.getGraphicsContext2D().fillOval(Game.purplePlayer.getX()* Settings.block, Game.purplePlayer.getY()* Settings.block, Settings.block, Settings.block);	
 			canvas.getGraphicsContext2D().setFill(Color.BLUE);
-			canvas.getGraphicsContext2D().fillOval(Game.BluePlayer.getX()* Settings.block, Game.BluePlayer.getY()* Settings.block,  Settings.block,   Settings.block);
-			canvas.getGraphicsContext2D().setFill(Color.YELLOW);
-			canvas.getGraphicsContext2D().fillOval(Game.YellowPlayer.getX()* Settings.block, Game.YellowPlayer.getY()* Settings.block, Settings.block, Settings.block);
-		}else if (Game.selectedPlayer == Block.PURPLE_PLAYER) {
+			canvas.getGraphicsContext2D().fillOval(Game.bluePlayer.getX()* Settings.block, Game.bluePlayer.getY()* Settings.block,  Settings.block,   Settings.block);		
+			
 			canvas.getGraphicsContext2D().setFill(Color.BLUE);
-			canvas.getGraphicsContext2D().fillOval(Game.BluePlayer.getX()* Settings.block, Game.BluePlayer.getY()* Settings.block,  Settings.block,   Settings.block);
-			canvas.getGraphicsContext2D().setFill(Color.YELLOW);
-			canvas.getGraphicsContext2D().fillOval(Game.YellowPlayer.getX()* Settings.block, Game.YellowPlayer.getY()* Settings.block, Settings.block, Settings.block);
+			canvas.getGraphicsContext2D().fillRect(Game.blueBlock.getX()* Settings.block, Game.blueBlock.getY()* Settings.block,  Settings.block,   Settings.block);		
 			canvas.getGraphicsContext2D().setFill(Color.PURPLE);
-			canvas.getGraphicsContext2D().fillOval(Game.PurplePlayer.getX()* Settings.block, Game.PurplePlayer.getY()* Settings.block, Settings.block, Settings.block);
+			canvas.getGraphicsContext2D().fillRect(Game.purpleBlock.getX()* Settings.block, Game.purpleBlock.getY()* Settings.block, Settings.block, Settings.block);
+			canvas.getGraphicsContext2D().setFill(Color.YELLOW);
+			
+			canvas.getGraphicsContext2D().fillRect(Game.yellowBlock.getX()* Settings.block, Game.yellowBlock.getY()* Settings.block, Settings.block, Settings.block);
+			canvas.getGraphicsContext2D().setFill(Color.YELLOW);
+			canvas.getGraphicsContext2D().fillOval(Game.yellowPlayer.getX()* Settings.block, Game.yellowPlayer.getY()* Settings.block, Settings.block, Settings.block);
+		}else if (Game.selectedPlayer == Block.PURPLE_PLAYER) {
+			
+			canvas.getGraphicsContext2D().setFill(Color.BLUE);
+			canvas.getGraphicsContext2D().fillOval(Game.bluePlayer.getX()* Settings.block, Game.bluePlayer.getY()* Settings.block,  Settings.block,   Settings.block);
+			canvas.getGraphicsContext2D().setFill(Color.YELLOW);
+			canvas.getGraphicsContext2D().fillOval(Game.yellowPlayer.getX()* Settings.block, Game.yellowPlayer.getY()* Settings.block, Settings.block, Settings.block);			
+			
+			canvas.getGraphicsContext2D().setFill(Color.BLUE);
+			canvas.getGraphicsContext2D().fillRect(Game.blueBlock.getX()* Settings.block, Game.blueBlock.getY()* Settings.block,  Settings.block,   Settings.block);
+			canvas.getGraphicsContext2D().setFill(Color.YELLOW);
+			canvas.getGraphicsContext2D().fillRect(Game.yellowBlock.getX()* Settings.block, Game.yellowBlock.getY()* Settings.block, Settings.block, Settings.block);
+			
+			canvas.getGraphicsContext2D().setFill(Color.PURPLE);
+			canvas.getGraphicsContext2D().fillRect(Game.purpleBlock.getX()* Settings.block, Game.purpleBlock.getY()* Settings.block, Settings.block, Settings.block);
+			canvas.getGraphicsContext2D().setFill(Color.PURPLE);
+			canvas.getGraphicsContext2D().fillOval(Game.purplePlayer.getX()* Settings.block, Game.purplePlayer.getY()* Settings.block, Settings.block, Settings.block);
 		}
+		
+		
+		
+		
 		
 		for (int i = 0; i < game.getBlocks().length; i++) {
 			int x = i * Settings.block;
 			for (int j = 0; j < game.getBlocks()[i].length; j++) {
 				int y = j * Settings.block;
 				switch (game.getBlocks()[i][j].getType()) {
+				/*
 				case Block.POINT: 
 					canvas.getGraphicsContext2D().setFill(Color.YELLOW);
 					canvas.getGraphicsContext2D().fillOval(x + Settings.block / 4, y + Settings.block / 4,
 							Settings.block / 2, Settings.block / 2);
-					break;
+					break;*/
 				case Block.WALL:
 					canvas.getGraphicsContext2D().setFill(Color.BLUE);
 					canvas.getGraphicsContext2D().fillRect(x + Settings.block / 4, y, Settings.block * 0.5,
