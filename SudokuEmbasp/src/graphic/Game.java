@@ -1,5 +1,8 @@
 package graphic;
 
+import finishZone.BlueFinish;
+import finishZone.PurpleFinish;
+import finishZone.YellowFinish;
 import player.BluePlayer;
 import player.PurplePlayer;
 import player.YellowPlayer;
@@ -28,6 +31,10 @@ public class Game {
 	public static YellowBlock yellowBlock = new YellowBlock(6, 8);
 	public static PurpleBlock purpleBlock = new PurpleBlock(7, 5);
 
+	public static BlueFinish blueFinish = new BlueFinish(9,10);
+	public static YellowFinish yellowFinish = new YellowFinish(10,11);
+	public static PurpleFinish purpleFinish = new PurpleFinish(9,12);
+	
 	public Game() { // generazione map
 
 		for (int i = 0; i < blocks.length; i++) {
