@@ -84,6 +84,10 @@ public class Game {
 
 			if (selectedPlayer == Block.BLUE_PLAYER) {
 				if (blueBlock.getX() == x && blueBlock.getY() == y) {
+					
+					if (x == blueFinish.getX() && y == blueFinish.getY()) // una volta posizionato il blocco nel finishzone non si puo spostare piu
+						return;
+								
 					if (direction == MOVE_LEFT)
 						if (blocks[x - 1][y].getType() != Block.WALL)
 							blueBlock.setX(x - 1);
@@ -106,6 +110,10 @@ public class Game {
 			}
 			if (selectedPlayer == Block.PURPLE_PLAYER) {
 				if (purpleBlock.getX() == x && purpleBlock.getY() == y) {
+					
+					if (x == purpleFinish.getX() && y == purpleFinish.getY()) // una volta posizionato il blocco nel finishzone non si puo spostare piu
+						return;
+					
 					if (direction == MOVE_LEFT)
 						if (blocks[x - 1][y].getType() != Block.WALL)
 							purpleBlock.setX(x - 1);
@@ -128,6 +136,10 @@ public class Game {
 			}
 			if (selectedPlayer == Block.YELLOW_PLAYER) {
 				if (yellowBlock.getX() == x && yellowBlock.getY() == y) {
+					
+					if (x == yellowFinish.getX() && y == yellowFinish.getY()) // una volta posizionato il blocco nel finishzone non si puo spostare piu
+						return;
+					
 					if (direction == MOVE_LEFT)
 						if (blocks[x - 1][y].getType() != Block.WALL)
 							yellowBlock.setX(x - 1);
