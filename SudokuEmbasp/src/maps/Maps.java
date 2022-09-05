@@ -1,84 +1,46 @@
 package maps;
 
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.util.ArrayList;
-import java.util.HashMap;
+import java.util.Scanner;
 
-/*
-0=muro
-1=vuoto
-2=viola Player
-3=blu Player
-4=giallo Player
-
-5=blocco viola
-6=blocco blu
-7=blocco giallo
-8=blocco rosso
-9=blocco verde
-
-10=finish viola
-11=finish blu
-12=finish giallo
-13=finish rosso
-14=finish verde
-*/
+import graphic.Block;
+import graphic.Settings;
 
 
 public class Maps {
-
-	private ArrayList<String> gameMaps;	
-	
-	private HashMap<String, File> association;
+	static Block [][] matrixGame = new Block [Settings.cellSize][Settings.cellSize];
+	public static int index = 0;
 	
 	public Maps() {
-		initializeContainerMaps();
 	}
 	
-	private void initializeContainerMaps() {
-		File img1= new File("null");
-		String map1 = new String("null");
-		association.put(map1, img1);
+	public static void loadRoom(int index) {
+		ArrayList<ArrayList<Block>> matrix = new ArrayList<ArrayList<Block>>();
+		try {
+			  int riga = 0;
+		      File myObj = new File("level"+index+".txt");
+		      Scanner myReader = new Scanner(myObj);
+		      while (myReader.hasNextLine()) {
+		        String data = myReader.nextLine();
+		        String[] blocchi = data.split(" ");
+		        matrix.add(new ArrayList<Block>());
+		        for(String blocco : blocchi) {
+		        	matrix.get(riga).add(new Block(Integer.parseInt(blocco)));
+		        }
+		        riga++;
+		      }
+		      myReader.close();
+		    } catch (FileNotFoundException e) {
+		      System.out.println("An error occurred.");
+		      e.printStackTrace();
+		    }
 		
-		/*
-		File img2= new File("null");
-		String map2 = new String("null");
-		association.put(map2, img2);
-		
-		File img3= new File("null");
-		String map3 = new String("null");
-		association.put(map3, img3);
-		
-		File img4= new File("null");
-		String map4 = new String("null");
-		association.put(map4, img4);
-		
-		File img5= new File("null");
-		String map5 = new String("null");
-		association.put(map5, img5);
-		*/
-		gameMaps.add(map1);
-		/*
-		gameMaps.add(map2);
-		gameMaps.add(map3);
-		gameMaps.add(map4);
-		gameMaps.add(map5);
-		*/
-	}
-
-	public ArrayList<String> getGameMaps() {
-		return gameMaps;
-	}
-
-	public void setGameMaps(ArrayList<String> gameMaps) {
-		this.gameMaps = gameMaps;
-	}
-
-	public HashMap<String, File> getAssociation() {
-		return association;
-	}
-
-	public void setAssociation(HashMap<String, File> association) {
-		this.association = association;
+		for(int i=0; i<matrix.size(); i++) {
+			for(int j=0; j<matrix.get(i).size(); j++) {
+				matrixGame[i][j] = matrix.get(i).get(j);
+			}
+		}
 	}
 }
