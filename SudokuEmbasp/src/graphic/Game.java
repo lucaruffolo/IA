@@ -3,6 +3,7 @@ package graphic;
 import finishZone.BlueFinish;
 import finishZone.PurpleFinish;
 import finishZone.YellowFinish;
+import maps.Maps;
 import player.BluePlayer;
 import player.PurplePlayer;
 import player.YellowPlayer;
@@ -37,11 +38,12 @@ public class Game {
 	
 	public Game() { // generazione map
 
-		for (int i = 0; i < blocks.length; i++) {
-			for (int j = 0; j < blocks[i].length; j++) {
-				blocks[i][j] = new Block(Block.EMPTY);
-			}
-		}
+		blocks =  Maps.loadRoom(0);
+//		for (int i = 0; i < blocks.length; i++) {
+//			for (int j = 0; j < blocks[i].length; j++) {
+//				blocks[i][j] = new Block(Block.EMPTY);
+//			}
+//		}
 		/*
 		 * blocks[bluePlayer.getX()][bluePlayer.getY()].setType(Block.BLUE_PLAYER);
 		 * blocks[yellowPlayer.getX()][yellowPlayer.getY()].setType(Block.YELLOW_PLAYER)
@@ -60,12 +62,12 @@ public class Game {
 		 * Block.EMPTY) { blocks[randX][j].setType(Block.WALL); } } count++; }
 		 */
 
-		for (int i = 0; i < blocks.length; i++) {
-			for (int j = 0; j < blocks[i].length; j++) {
-				if (i == 0 || j == 0 || i == blocks.length - 1 || j == blocks[i].length - 1)
-					blocks[i][j].setType(Block.WALL);
-			}
-		}
+//		for (int i = 0; i < blocks.length; i++) {
+//			for (int j = 0; j < blocks[i].length; j++) {
+//				if (i == 0 || j == 0 || i == blocks.length - 1 || j == blocks[i].length - 1)
+//					blocks[i][j].setType(Block.WALL);
+//			}
+//		}
 
 	}
 

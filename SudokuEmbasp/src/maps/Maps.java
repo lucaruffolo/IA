@@ -2,6 +2,7 @@ package maps;
 
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -16,11 +17,13 @@ public class Maps {
 	public Maps() {
 	}
 	
-	public static void loadRoom(int index) {
+	public static Block[][] loadRoom(int index) {
+		System.out.println(Paths.get("lee.txt").toAbsolutePath());
+
 		ArrayList<ArrayList<Block>> matrix = new ArrayList<ArrayList<Block>>();
 		try {
 			  int riga = 0;
-		      File myObj = new File("level"+index+".txt");
+		      File myObj = new File("src\\maps\\level"+index);
 		      Scanner myReader = new Scanner(myObj);
 		      while (myReader.hasNextLine()) {
 		        String data = myReader.nextLine();
@@ -42,5 +45,6 @@ public class Maps {
 				matrixGame[i][j] = matrix.get(i).get(j);
 			}
 		}
+		return matrixGame;
 	}
 }
