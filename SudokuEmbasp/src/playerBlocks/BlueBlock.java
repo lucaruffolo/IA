@@ -4,6 +4,7 @@ public class BlueBlock {
 
 	int x;
 	int y;
+	Boolean onFinish = false;
 
 	public BlueBlock(int x, int y) {
 		super();
@@ -26,5 +27,14 @@ public class BlueBlock {
 	public void setY(int y) {
 		this.y = y;
 	}
+
+	public Boolean getOnFinish() {
+		return onFinish;
+	}
+
+	public void setOnFinish(Boolean onFinish) {
+		this.onFinish = onFinish;
+	}
+	
 
 }

@@ -4,6 +4,7 @@ public class PurpleBlock {
 
 	int x;
 	int y;
+	Boolean onFinish = false;
 
 	public PurpleBlock(int x, int y) {
 		super();
@@ -25,6 +26,13 @@ public class PurpleBlock {
 
 	public void setY(int y) {
 		this.y = y;
+	}
+	public Boolean getOnFinish() {
+		return onFinish;
+	}
+
+	public void setOnFinish(Boolean onFinish) {
+		this.onFinish = onFinish;
 	}
 
 }

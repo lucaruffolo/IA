@@ -85,11 +85,7 @@ public class Game {
 			y = newY(direction);
 
 			if (selectedPlayer == Block.BLUE_PLAYER) {
-				if (blueBlock.getX() == x && blueBlock.getY() == y) {
-					
-					if (x == blueFinish.getX() && y == blueFinish.getY()) // una volta posizionato il blocco nel finishzone non si puo spostare piu
-						return;
-								
+				if (blueBlock.getX() == x && blueBlock.getY() == y) {	
 					if (direction == MOVE_LEFT)
 						if (blocks[x - 1][y].getType() != Block.WALL)
 							blueBlock.setX(x - 1);
@@ -112,10 +108,6 @@ public class Game {
 			}
 			if (selectedPlayer == Block.PURPLE_PLAYER) {
 				if (purpleBlock.getX() == x && purpleBlock.getY() == y) {
-					
-					if (x == purpleFinish.getX() && y == purpleFinish.getY()) // una volta posizionato il blocco nel finishzone non si puo spostare piu
-						return;
-					
 					if (direction == MOVE_LEFT)
 						if (blocks[x - 1][y].getType() != Block.WALL)
 							purpleBlock.setX(x - 1);
@@ -138,10 +130,6 @@ public class Game {
 			}
 			if (selectedPlayer == Block.YELLOW_PLAYER) {
 				if (yellowBlock.getX() == x && yellowBlock.getY() == y) {
-					
-					if (x == yellowFinish.getX() && y == yellowFinish.getY()) // una volta posizionato il blocco nel finishzone non si puo spostare piu
-						return;
-					
 					if (direction == MOVE_LEFT)
 						if (blocks[x - 1][y].getType() != Block.WALL)
 							yellowBlock.setX(x - 1);
@@ -165,6 +153,32 @@ public class Game {
 			}
 
 			blocks[x][y].setType(selectedPlayer);
+		}
+		
+		if (blueBlock.getX() == blueFinish.getX() && blueBlock.getY() == blueFinish.getY())
+			blueBlock.setOnFinish(true);
+		else
+			blueBlock.setOnFinish(false);
+		
+		if (purpleBlock.getX() == purpleFinish.getX() && purpleBlock.getY() == purpleFinish.getY())
+			purpleBlock.setOnFinish(true);
+		else
+			purpleBlock.setOnFinish(false);
+		
+		if (yellowBlock.getX() == yellowFinish.getX() && yellowBlock.getY() == yellowFinish.getY())
+			yellowBlock.setOnFinish(true);
+		else
+			yellowBlock.setOnFinish(false);
+		
+//		System.out.println("blue"+blueBlock.getOnFinish());
+//		System.out.println("purple"+purpleBlock.getOnFinish());
+//		System.out.println("yellow"+yellowBlock.getOnFinish());
+		if(blueBlock.getOnFinish() == true && yellowBlock.getOnFinish() == true && purpleBlock.getOnFinish() == true) {
+			System.out.println("vittoria");
+			if(Maps.index == 3)
+				System.out.println("Fine gioco");
+			else
+				Maps.loadRoom(Maps.index+1);
 		}
 	}
 
