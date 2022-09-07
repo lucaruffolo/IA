@@ -3,6 +3,7 @@ package graphic;
 import finishZone.BlueFinish;
 import finishZone.PurpleFinish;
 import finishZone.YellowFinish;
+import main.Main;
 import maps.Maps;
 import player.BluePlayer;
 import player.PurplePlayer;

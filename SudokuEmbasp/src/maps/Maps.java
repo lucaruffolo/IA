@@ -21,7 +21,7 @@ import playerBlocks.YellowBlock;
 
 
 public class Maps {
-	static Block [][] matrixGame = new Block [Settings.cellSize][Settings.cellSize];
+	public static Block [][] matrixGame = new Block [Settings.cellSize][Settings.cellSize];
 	public static int index = 0;
 	
 	public Maps() {

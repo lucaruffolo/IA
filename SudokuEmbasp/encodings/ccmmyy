@@ -1,0 +1,8 @@
+#show cell/3.
+ 
+pos(0..17).
+symbol(0..11).
+
+cell(X,Y,N) | nocell(X,Y,N) :- pos(X), pos(Y), symbol(N).
+
+:- cell(X,Y,N), cell(X,Y,N1), N1 <> N.

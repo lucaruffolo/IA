@@ -1,4 +1,9 @@
 package main;
+
+import graphic.Block;
+import graphic.Game;
+import graphic.PacmanGraphics;
+import graphic.Settings;
 import it.unical.mat.embasp.base.Handler;
 import it.unical.mat.embasp.base.InputProgram;
 import it.unical.mat.embasp.base.Output;
@@ -9,24 +14,22 @@ import it.unical.mat.embasp.languages.asp.ASPMapper;
 import it.unical.mat.embasp.languages.asp.AnswerSet;
 import it.unical.mat.embasp.languages.asp.AnswerSets;
 import it.unical.mat.embasp.platforms.desktop.DesktopHandler;
-import it.unical.mat.embasp.specializations.dlv.desktop.DLVDesktopService;
 import it.unical.mat.embasp.specializations.dlv2.desktop.DLV2DesktopService;
-
-import graphic.Game;
-import graphic.PacmanGraphics;
-import graphic.Settings;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
+import javafx.scene.control.Cell;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
-
+import maps.Maps;
 import menu.MenuIniziale;
 
 public class Main extends Application {
 
 	public static Stage window;
-	//public static Player player = new Blue_Player();
+	private static int N = 17;
+	private static String encodingResource = "encodings/ccmmyy";
+	private static Handler handler;
 
 	@Override
 	public void start(Stage primaryStage) throws Exception {
@@ -51,5 +54,58 @@ public class Main extends Application {
 		window.centerOnScreen();
 		window.setScene(scene);
 		pg.draw();
+		startIA();
 	}
+
+	public static void startIA() {
+		handler = new DesktopHandler(new DLV2DesktopService("lib/dlv2.exe"));
+		try {
+			ASPMapper.getInstance().registerClass(Block.class);
+		} catch (ObjectNotValidException | IllegalAnnotationException e1) {
+			e1.printStackTrace();
+		}
+		InputProgram facts = new ASPInputProgram();
+		for (int i = 0; i < Settings.cellSize; i++) {
+			for (int j = 0; j < Settings.cellSize; j++) {
+				if (Maps.matrixGame[i][j].getType() != Block.EMPTY) {
+					try {
+						facts.addObjectInput(new Block(i, j, Maps.matrixGame[i][j].getType()));
+					} catch (Exception e) {
+						e.printStackTrace();
+					}
+				}
+			}
+		}
+		
+		handler.addProgram(facts);
+		InputProgram encoding = new ASPInputProgram();
+		encoding.addFilesPath(encodingResource);
+		handler.addProgram(encoding);
+		Output o = handler.startSync();
+		AnswerSets answersets = (AnswerSets) o;
+		
+			
+		System.out.println(o.getOutput());
+		System.out.println(answersets.getOutput());
+		System.out.println(answersets.getAnswersets());
+		System.out.println(answersets.getAnswersets());
+		
+		for (AnswerSet a : answersets.getAnswersets()) {
+			try {
+				for (Object obj : a.getAtoms()) {
+
+					if (!(obj instanceof Block))
+						continue;
+
+					Block cell = (Block) obj;
+					Maps.matrixGame[cell.getX()][cell.getY()].setType(cell.getType());
+					System.out.println(obj);
+				}
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		}
+
+	}
+
 }
