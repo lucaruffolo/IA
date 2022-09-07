@@ -1,5 +1,7 @@
 package main;
 
+import java.lang.reflect.InvocationTargetException;
+
 import graphic.Block;
 import graphic.Game;
 import graphic.PacmanGraphics;
@@ -67,7 +69,7 @@ public class Main extends Application {
 		InputProgram facts = new ASPInputProgram();
 		for (int i = 0; i < Settings.cellSize; i++) {
 			for (int j = 0; j < Settings.cellSize; j++) {
-				if (Maps.matrixGame[i][j].getType() != Block.EMPTY) {
+				if (Maps.matrixGame[i][j].getType() != Block.WALL && Maps.matrixGame[i][j].getType() != Block.NULLO) {
 					try {
 						facts.addObjectInput(new Block(i, j, Maps.matrixGame[i][j].getType()));
 					} catch (Exception e) {
@@ -84,28 +86,42 @@ public class Main extends Application {
 		Output o = handler.startSync();
 		AnswerSets answersets = (AnswerSets) o;
 		
+			 
+		//System.out.println("\n" + answersets.getAnswersets());
 			
-		System.out.println(o.getOutput());
-		System.out.println(answersets.getOutput());
-		System.out.println(answersets.getAnswersets());
-		System.out.println(answersets.getAnswersets());
-		
-		for (AnswerSet a : answersets.getAnswersets()) {
+		for (AnswerSet a : answersets.getAnswersets()) {	
+			System.out.println(a);
+			System.out.println(a.getAnswerSet());
+			/* crash
+			 * 
 			try {
 				for (Object obj : a.getAtoms()) {
-
+					System.out.println(obj);
+					System.out.println(a.getAtoms());
 					if (!(obj instanceof Block))
 						continue;
 
 					Block cell = (Block) obj;
 					Maps.matrixGame[cell.getX()][cell.getY()].setType(cell.getType());
-					System.out.println(obj);
+					
+					/*
+					for (int i = 0; i < 17; i++) {
+						for (int j = 0; j < 17; j++) {
+							System.out.print(Maps.matrixGame[i][j].getType() +" ");
+						}
+						System.out.println();
+					}*
+					
 				}
 			} catch (Exception e) {
+				
 				e.printStackTrace();
 			}
+			
+			*/
 		}
 
+		
 	}
 
 }
