@@ -1,8 +1,28 @@
-#show cell/3.
- 
-pos(0..16).
-symbol(0..11).
+pallinoblu(X,Y) :- cell(X,Y,N), N=1.
+pallinoviola(X,Y) :- cell(X,Y,N), N=2.
+pallinogiallo(X,Y) :- cell(X,Y,N), N=3.
 
-cell(X,Y,N) | nocell(X,Y,N) :- pos(X), pos(Y), symbol(N).
+bloccoblu(X,Y) :- cell(X,Y,N), N=6.
+bloccoviola(X,Y) :- cell(X,Y,N), N=7.
+bloccogiallo(X,Y) :- cell(X,Y,N), N=8.
 
-:- cell(X,Y,N), cell(X,Y,N1), N1 <> N.
+fineblu(X,Y) :- cell(X,Y,N), N=9.
+fineviola(X,Y) :- cell(X,Y,N), N=10.
+finegiallo(X,Y) :- cell(X,Y,N), N=11.
+
+muro(X,Y) :- cell(X,Y,N), N=5.
+
+arco(X1,Y1,X2,Y2) :- cell(X1,Y1,N1), N1=!5, cell(X2,Y2,N2), N2!=5, X1=X2, Y1-1=Y2.
+arco(X1,Y1,X2,Y2) :- cell(X1,Y1,N1), N1=!5, cell(X2,Y2,N2), N2!=5, X1=X2, Y1+1=Y2.
+arco(X1,Y1,X2,Y2) :- cell(X1,Y1,N1), N1=!5, cell(X2,Y2,N2), N2!=5, X1-1=X2, Y1=Y2.
+arco(X1,Y1,X2,Y2) :- cell(X1,Y1,N1), N1=!5, cell(X2,Y2,N2), N2!=5, X1+1=X2, Y1=Y2.
+connesse(X1,Y1,X2,Y2):- arco(X1,Y1,X2,Y2).
+connesse(X1,Y1,X2,Y2):- connesse(X1,Y1,X3,Y3), connesse(X3,Y3,X2,Y2).
+
+:- not connesse(X1,Y1,X2,Y2), bloccoblu(X1,Y1), fineblu(X2,Y2).
+:- not connesse(X1,Y1,X2,Y2), bloccoviola(X1,Y1), fineviola(X2,Y2).
+:- not connesse(X1,Y1,X2,Y2), bloccogiallo(X1,Y1), finegiallo(X2,Y2).
+
+percorsoblu(X,Y) :- 
+percorsoviola(X,Y) :- 
+percorsogiallo(X,Y) :- 

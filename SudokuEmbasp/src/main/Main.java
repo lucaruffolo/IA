@@ -69,7 +69,7 @@ public class Main extends Application {
 		InputProgram facts = new ASPInputProgram();
 		for (int i = 0; i < Settings.cellSize; i++) {
 			for (int j = 0; j < Settings.cellSize; j++) {
-				if (Maps.matrixGame[i][j].getType() != Block.WALL && Maps.matrixGame[i][j].getType() != Block.NULLO) {
+				if (Maps.matrixGame[i][j].getType() != Block.NULLO) {
 					try {
 						facts.addObjectInput(new Block(i, j, Maps.matrixGame[i][j].getType()));
 					} catch (Exception e) {
@@ -87,7 +87,7 @@ public class Main extends Application {
 		AnswerSets answersets = (AnswerSets) o;
 		
 			 
-		//System.out.println("\n" + answersets.getAnswersets());
+		System.out.println("\n" + answersets.getAnswersets());
 			
 		for (AnswerSet a : answersets.getAnswersets()) {	
 			//System.out.println(a);
