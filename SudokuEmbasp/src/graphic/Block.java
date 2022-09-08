@@ -28,12 +28,15 @@ public class Block {
 	private int type;
 	
 	public Block(int x, int y, int type) {
-		super();
 		this.type = type;
 		this.x = x;
 		this.y = y;
 	}
-
+	
+	public Block() {
+		
+	}
+	
 	public int getX() {
 		return x;
 	}

@@ -90,18 +90,19 @@ public class Main extends Application {
 		//System.out.println("\n" + answersets.getAnswersets());
 			
 		for (AnswerSet a : answersets.getAnswersets()) {	
-			System.out.println(a);
-			System.out.println(a.getAnswerSet());
-			/* crash
-			 * 
+			//System.out.println(a);
+			//System.out.println(a.getAnswerSet());
+
 			try {
 				for (Object obj : a.getAtoms()) {
-					System.out.println(obj);
-					System.out.println(a.getAtoms());
+					//System.out.println(obj);
+					//System.out.println(a.getAtoms());
 					if (!(obj instanceof Block))
 						continue;
 
 					Block cell = (Block) obj;
+					//System.out.println(cell.getX());
+					//System.out.println(cell.getY());
 					Maps.matrixGame[cell.getX()][cell.getY()].setType(cell.getType());
 					
 					/*
@@ -110,7 +111,7 @@ public class Main extends Application {
 							System.out.print(Maps.matrixGame[i][j].getType() +" ");
 						}
 						System.out.println();
-					}*
+					}*/
 					
 				}
 			} catch (Exception e) {
@@ -118,7 +119,6 @@ public class Main extends Application {
 				e.printStackTrace();
 			}
 			
-			*/
 		}
 
 		

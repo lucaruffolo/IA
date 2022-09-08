@@ -1,6 +1,6 @@
 #show cell/3.
  
-pos(0..17).
+pos(0..16).
 symbol(0..11).
 
 cell(X,Y,N) | nocell(X,Y,N) :- pos(X), pos(Y), symbol(N).
