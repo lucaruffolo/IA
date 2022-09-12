@@ -181,6 +181,9 @@ public class Game {
 			else
 				Maps.loadRoom(Maps.index+1);
 		}
+		if (Main.onMoveRefreshIA) {
+			Main.startIA();
+		}
 	}
 
 	public void changePlayer(int changePlayer) {

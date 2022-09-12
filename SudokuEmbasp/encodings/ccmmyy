@@ -1,3 +1,4 @@
+
 pallinoblu(X,Y) :- cell(X,Y,N), N=1.
 pallinoviola(X,Y) :- cell(X,Y,N), N=2.
 pallinogiallo(X,Y) :- cell(X,Y,N), N=3.
@@ -17,8 +18,20 @@ arco(X1,Y1,X2,Y2) :- cell(X1,Y1,N1), N1<>5, N1<>4, cell(X2,Y2,N2), N2<>5, N2<>4,
 arco(X1,Y1,X2,Y2) :- cell(X1,Y1,N1), N1<>5, N1<>4, cell(X2,Y2,N2), N2<>5, N2<>4, X1-1=X2, Y1=Y2.
 arco(X1,Y1,X2,Y2) :- cell(X1,Y1,N1), N1<>5, N1<>4, cell(X2,Y2,N2), N2<>5, N2<>4, X1+1=X2, Y1=Y2.
 
-percorsoblu(X1,Y1,X2,Y2) | notpercorsoblu(X1,Y1,X2,Y2) :- bloccoblu(X1,Y1), arco(X1,Y1,X2,Y2).
-percorsoblu(X1,Y1,X2,Y2) | notpercorsoblu(X1,Y1,X2,Y2) :- percorsoblu(_,_,X1,Y1), arco(X1,Y1,X2,Y2), not fineblu(X1,Y1).
-visitatoblu(X,Y) :- percorsoblu(_,_,X,Y).
+percorsoblu(X2,Y2) | notpercorsoblu(X2,Y2) :- bloccoblu(X1,Y1), arco(X1,Y1,X2,Y2).
+percorsoblu(X2,Y2) | notpercorsoblu(X2,Y2) :- percorsoblu(X1,Y1), arco(X1,Y1,X2,Y2), not fineblu(X1,Y1).
+visitatoblu(X,Y) :- percorsoblu(X,Y).
 :- fineblu(X,Y), not visitatoblu(X,Y).
-:~ #count{X1,Y1,X2,Y2: percorsoblu(X1,Y1,X2,Y2)}=K. [K@1]
+:~ #count{X,Y: percorsoblu(X,Y)}=K. [K@1]
+
+percorsoviola(X2,Y2) | notpercorsoviola(X2,Y2) :- bloccoviola(X1,Y1), arco(X1,Y1,X2,Y2).
+percorsoviola(X2,Y2) | notpercorsoviola(X2,Y2) :- percorsoviola(X1,Y1), arco(X1,Y1,X2,Y2), not fineviola(X1,Y1).
+visitatoviola(X,Y) :- percorsoviola(X,Y).
+:- fineviola(X,Y), not visitatoviola(X,Y).
+:~ #count{X,Y: percorsoviola(X,Y)}=K. [K@2]
+
+percorsogiallo(X2,Y2) | notpercorsogiallo(X2,Y2) :- bloccogiallo(X1,Y1), arco(X1,Y1,X2,Y2).
+percorsogiallo(X2,Y2) | notpercorsogiallo(X2,Y2) :- percorsogiallo(X1,Y1), arco(X1,Y1,X2,Y2), not finegiallo(X1,Y1).
+visitatogiallo(X,Y) :- percorsogiallo(X,Y).
+:- finegiallo(X,Y), not visitatogiallo(X,Y).
+:~ #count{X,Y: percorsogiallo(X,Y)}=K. [K@3]

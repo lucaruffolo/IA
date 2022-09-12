@@ -32,7 +32,9 @@ public class Main extends Application {
 	private static int N = 17;
 	private static String encodingResource = "encodings/ccmmyy";
 	private static Handler handler;
-
+	public static Boolean onMoveRefreshIA = false;
+	
+	
 	@Override
 	public void start(Stage primaryStage) throws Exception {
 		window = primaryStage;
@@ -78,50 +80,52 @@ public class Main extends Application {
 				}
 			}
 		}
-		
+
 		handler.addProgram(facts);
 		InputProgram encoding = new ASPInputProgram();
 		encoding.addFilesPath(encodingResource);
 		handler.addProgram(encoding);
 		Output o = handler.startSync();
 		AnswerSets answersets = (AnswerSets) o;
-		
-			 
-		System.out.println("\n" + answersets.getAnswersets());
+
+		// System.out.println("\n" + answersets.getAnswersets());
+		int index = 1;
+
+		for (AnswerSet a : answersets.getAnswersets()) {
+			// System.out.println(a);
+			// System.out.println(answersets.getAnswersets().size());
+			// System.out.println(a.getAnswerSet());
 			
-		for (AnswerSet a : answersets.getAnswersets()) {	
-			//System.out.println(a);
-			//System.out.println(a.getAnswerSet());
+			index++;
+			if (index == answersets.getAnswersets().size()) {
+				System.out.println("\n[Ottimo] (UltimoAS):");
+				System.out.println(a.getAnswerSet());
+				try {
+					for (Object obj : a.getAtoms()) {
+						// System.out.println(obj);
+						// System.out.println(a.getAtoms());
+						if (!(obj instanceof Block))
+							continue;
 
-			try {
-				for (Object obj : a.getAtoms()) {
-					//System.out.println(obj);
-					//System.out.println(a.getAtoms());
-					if (!(obj instanceof Block))
-						continue;
+						Block cell = (Block) obj;
+						// System.out.println(cell.getX());
+						// System.out.println(cell.getY());
+						Maps.matrixGame[cell.getX()][cell.getY()].setType(cell.getType());
 
-					Block cell = (Block) obj;
-					//System.out.println(cell.getX());
-					//System.out.println(cell.getY());
-					Maps.matrixGame[cell.getX()][cell.getY()].setType(cell.getType());
-					
-					/*
-					for (int i = 0; i < 17; i++) {
-						for (int j = 0; j < 17; j++) {
-							System.out.print(Maps.matrixGame[i][j].getType() +" ");
-						}
-						System.out.println();
-					}*/
-					
+						/*
+						 * for (int i = 0; i < 17; i++) { for (int j = 0; j < 17; j++) {
+						 * System.out.print(Maps.matrixGame[i][j].getType() +" "); }
+						 * System.out.println(); }
+						 */
+
+					}
+				} catch (Exception e) {
+
+					e.printStackTrace();
 				}
-			} catch (Exception e) {
-				
-				e.printStackTrace();
 			}
-			
 		}
 
-		
 	}
 
 }
