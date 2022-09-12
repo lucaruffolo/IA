@@ -12,17 +12,13 @@ finegiallo(X,Y) :- cell(X,Y,N), N=11.
 
 muro(X,Y) :- cell(X,Y,N), N=5.
 
-arco(X1,Y1,X2,Y2) :- cell(X1,Y1,N1), N1=!5, cell(X2,Y2,N2), N2!=5, X1=X2, Y1-1=Y2.
-arco(X1,Y1,X2,Y2) :- cell(X1,Y1,N1), N1=!5, cell(X2,Y2,N2), N2!=5, X1=X2, Y1+1=Y2.
-arco(X1,Y1,X2,Y2) :- cell(X1,Y1,N1), N1=!5, cell(X2,Y2,N2), N2!=5, X1-1=X2, Y1=Y2.
-arco(X1,Y1,X2,Y2) :- cell(X1,Y1,N1), N1=!5, cell(X2,Y2,N2), N2!=5, X1+1=X2, Y1=Y2.
-connesse(X1,Y1,X2,Y2):- arco(X1,Y1,X2,Y2).
-connesse(X1,Y1,X2,Y2):- connesse(X1,Y1,X3,Y3), connesse(X3,Y3,X2,Y2).
+arco(X1,Y1,X2,Y2) :- cell(X1,Y1,N1), N1<>5, N1<>4, cell(X2,Y2,N2), N2<>5, N2<>4, X1=X2, Y1-1=Y2.
+arco(X1,Y1,X2,Y2) :- cell(X1,Y1,N1), N1<>5, N1<>4, cell(X2,Y2,N2), N2<>5, N2<>4, X1=X2, Y1+1=Y2.
+arco(X1,Y1,X2,Y2) :- cell(X1,Y1,N1), N1<>5, N1<>4, cell(X2,Y2,N2), N2<>5, N2<>4, X1-1=X2, Y1=Y2.
+arco(X1,Y1,X2,Y2) :- cell(X1,Y1,N1), N1<>5, N1<>4, cell(X2,Y2,N2), N2<>5, N2<>4, X1+1=X2, Y1=Y2.
 
-:- not connesse(X1,Y1,X2,Y2), bloccoblu(X1,Y1), fineblu(X2,Y2).
-:- not connesse(X1,Y1,X2,Y2), bloccoviola(X1,Y1), fineviola(X2,Y2).
-:- not connesse(X1,Y1,X2,Y2), bloccogiallo(X1,Y1), finegiallo(X2,Y2).
-
-percorsoblu(X,Y) :- 
-percorsoviola(X,Y) :- 
-percorsogiallo(X,Y) :- 
+percorsoblu(X1,Y1,X2,Y2) | notpercorsoblu(X1,Y1,X2,Y2) :- bloccoblu(X1,Y1), arco(X1,Y1,X2,Y2).
+percorsoblu(X1,Y1,X2,Y2) | notpercorsoblu(X1,Y1,X2,Y2) :- percorsoblu(_,_,X1,Y1), arco(X1,Y1,X2,Y2), not fineblu(X1,Y1).
+visitatoblu(X,Y) :- percorsoblu(_,_,X,Y).
+:- fineblu(X,Y), not visitatoblu(X,Y).
+:~ #count{X1,Y1,X2,Y2: percorsoblu(X1,Y1,X2,Y2)}=K. [K@1]
