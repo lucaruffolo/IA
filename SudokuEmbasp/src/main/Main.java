@@ -66,8 +66,9 @@ public class Main extends Application {
 		Scene scene = new Scene(pg, Settings.size, Settings.size);
 		window.centerOnScreen();
 		window.setScene(scene);
-		pg.draw();
+		//pg.draw();
 		startIA();
+		pg.draw();
 	}
 
 	public static void startIA() {

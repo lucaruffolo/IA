@@ -79,7 +79,14 @@ public class PacmanGraphics extends StackPane {
 			canvas.getGraphicsContext2D().setFill(Color.YELLOW);			
 			canvas.getGraphicsContext2D().fillRect(Game.yellowBlock.getX()* Settings.block, Game.yellowBlock.getY()* Settings.block, Settings.block, Settings.block);
 			canvas.getGraphicsContext2D().setFill(Color.YELLOW);
-			canvas.getGraphicsContext2D().fillOval(Game.yellowPlayer.getX()* Settings.block, Game.yellowPlayer.getY()* Settings.block, Settings.block, Settings.block);			
+			canvas.getGraphicsContext2D().fillOval(Game.yellowPlayer.getX()* Settings.block, Game.yellowPlayer.getY()* Settings.block, Settings.block, Settings.block);
+			if (Main.listaPercorsoGiallo.size() > 0) {
+				System.out.println("disegnogiallo");
+				for(PercorsoGiallo i: Main.listaPercorsoGiallo) {
+					canvas.getGraphicsContext2D().setFill(Color.DARKGOLDENROD);
+					canvas.getGraphicsContext2D().fillOval(i.getX()* Settings.block+10, i.getY()* Settings.block+10 ,  Settings.block*0.5,   Settings.block*0.5);
+				}
+			}
 		}else if (Game.selectedPlayer == Block.PURPLE_PLAYER) {
 			canvas.getGraphicsContext2D().setFill(Color.LIGHTYELLOW);
 			canvas.getGraphicsContext2D().fillRect(Game.yellowFinish.getX()* Settings.block, Game.yellowFinish.getY()* Settings.block, Settings.block, Settings.block);
@@ -101,7 +108,13 @@ public class PacmanGraphics extends StackPane {
 			canvas.getGraphicsContext2D().fillRect(Game.purpleBlock.getX()* Settings.block, Game.purpleBlock.getY()* Settings.block, Settings.block, Settings.block);
 			canvas.getGraphicsContext2D().setFill(Color.PURPLE);
 			canvas.getGraphicsContext2D().fillOval(Game.purplePlayer.getX()* Settings.block, Game.purplePlayer.getY()* Settings.block, Settings.block, Settings.block);	
-			
+			if (Main.listaPercorsoViola.size() > 0) {
+				System.out.println("disegnoviola");
+				for(PercorsoViola i: Main.listaPercorsoViola) {
+					canvas.getGraphicsContext2D().setFill(Color.DARKVIOLET);
+					canvas.getGraphicsContext2D().fillOval(i.getX()* Settings.block+10, i.getY()* Settings.block+10 ,  Settings.block*0.5,   Settings.block*0.5);
+				}
+			}
 		}
 		
 		
