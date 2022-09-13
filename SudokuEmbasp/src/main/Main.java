@@ -1,6 +1,6 @@
 package main;
 
-import java.lang.reflect.InvocationTargetException;
+import java.util.ArrayList;
 
 import graphic.Block;
 import graphic.Game;
@@ -23,7 +23,6 @@ import it.unical.mat.embasp.specializations.dlv2.desktop.DLV2DesktopService;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
-import javafx.scene.control.Cell;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 import maps.Maps;
@@ -36,10 +35,14 @@ public class Main extends Application {
 	private static String encodingResource = "encodings/ccmmyy";
 	private static Handler handler;
 	public static Boolean onMoveRefreshIA = true;
-	
-	
+	public static ArrayList<PercorsoBlu> listaPercorsoBlu;
+	public static ArrayList<PercorsoGiallo> listaPercorsoGiallo;
+	public static ArrayList<PercorsoViola> listaPercorsoViola;
+
 	@Override
 	public void start(Stage primaryStage) throws Exception {
+	
+		
 		window = primaryStage;
 		FXMLLoader loader = new FXMLLoader(MenuIniziale.class.getResource("MenuIniziale.fxml"));
 		AnchorPane root = (AnchorPane) loader.load();
@@ -51,6 +54,9 @@ public class Main extends Application {
 	}
 
 	public static void main(String[] args) {
+		listaPercorsoBlu = new ArrayList<PercorsoBlu>();
+		listaPercorsoGiallo = new ArrayList<PercorsoGiallo>();
+		listaPercorsoViola = new ArrayList<PercorsoViola>();
 		launch(args);
 	}
 
@@ -65,6 +71,11 @@ public class Main extends Application {
 	}
 
 	public static void startIA() {
+		
+		listaPercorsoBlu.clear();
+		listaPercorsoGiallo.clear();
+		listaPercorsoViola.clear();
+		
 		handler = new DesktopHandler(new DLV2DesktopService("lib/dlv2.exe"));
 		try {
 			ASPMapper.getInstance().registerClass(Block.class);
@@ -84,9 +95,9 @@ public class Main extends Application {
 			}
 		}
 		try {
-			facts.addObjectInput(new PercorsoBlu(0,0,0));
-			facts.addObjectInput(new PercorsoGiallo(0,0,0));
-			facts.addObjectInput(new PercorsoViola(0,0,0));
+			facts.addObjectInput(new PercorsoBlu(0, 0, 0));
+			facts.addObjectInput(new PercorsoGiallo(0, 0, 0));
+			facts.addObjectInput(new PercorsoViola(0, 0, 0));
 		} catch (Exception e1) {
 			e1.printStackTrace();
 		}
@@ -104,35 +115,43 @@ public class Main extends Application {
 			// System.out.println(a);
 			// System.out.println(answersets.getAnswersets().size());
 			// System.out.println(a.getAnswerSet());
-			
+
 			index++;
+	
+			
 			if (index == answersets.getAnswersets().size()) {
-				//System.out.println("\n[Ottimo] (UltimoAS):");
-				//System.out.println(a.getAnswerSet());
+				// System.out.println("\n[Ottimo] (UltimoAS):");
+				// System.out.println(a.getAnswerSet());
 				try {
 					for (Object obj : a.getAtoms()) {
-						//System.out.println(obj);
+						// System.out.println(obj);
 						// System.out.println(a.getAtoms());
 						if (obj instanceof PercorsoBlu) {
 							PercorsoBlu cell = (PercorsoBlu) obj;
-							if(cell.getType()==1)
+							if (cell.getType() == 1) {
 								System.out.println("BLU: " + cell.getX() + "-" + cell.getY());
+								listaPercorsoBlu.add(cell);
+							}
 						}
 						if (obj instanceof PercorsoViola) {
 							PercorsoViola cell = (PercorsoViola) obj;
-							if(cell.getType()==2)
+							if (cell.getType() == 2) {
+								listaPercorsoViola.add(cell);
+
 								System.out.println("VIOLA: " + cell.getX() + "-" + cell.getY());
+							}
 						}
 						if (obj instanceof PercorsoGiallo) {
 							PercorsoGiallo cell = (PercorsoGiallo) obj;
-							if(cell.getType()==3)
+							if (cell.getType() == 3) {
 								System.out.println("GIALLO: " + cell.getX() + "-" + cell.getY());
+								listaPercorsoGiallo.add(cell);
+
+							}
 						}
-						/*
-						 * for (int i = 0; i < 17; i++) { for (int j = 0; j < 17; j++) {
-						 * System.out.print(Maps.matrixGame[i][j].getType() +" "); }
-						 * System.out.println(); }
-						 */
+						
+						
+						
 
 					}
 				} catch (Exception e) {

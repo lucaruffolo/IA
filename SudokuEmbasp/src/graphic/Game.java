@@ -33,13 +33,13 @@ public class Game {
 	public static YellowBlock yellowBlock = new YellowBlock(6, 8);
 	public static PurpleBlock purpleBlock = new PurpleBlock(7, 5);
 
-	public static BlueFinish blueFinish = new BlueFinish(9,10);
-	public static YellowFinish yellowFinish = new YellowFinish(10,11);
-	public static PurpleFinish purpleFinish = new PurpleFinish(9,12);
-	
+	public static BlueFinish blueFinish = new BlueFinish(9, 10);
+	public static YellowFinish yellowFinish = new YellowFinish(10, 11);
+	public static PurpleFinish purpleFinish = new PurpleFinish(9, 12);
+
 	public Game() { // generazione map
 
-		blocks =  Maps.loadRoom(0);
+		blocks = Maps.loadRoom(0);
 //		for (int i = 0; i < blocks.length; i++) {
 //			for (int j = 0; j < blocks[i].length; j++) {
 //				blocks[i][j] = new Block(Block.EMPTY);
@@ -79,26 +79,34 @@ public class Game {
 			return;
 
 		if (!collision(newX(direction), newY(direction))) {
-
+			
 			blocks[x][y].setType(Block.EMPTY);
 
 			x = newX(direction);
 			y = newY(direction);
 
 			if (selectedPlayer == Block.BLUE_PLAYER) {
-				if (blueBlock.getX() == x && blueBlock.getY() == y) {	
+				if (blueBlock.getX() == x && blueBlock.getY() == y) {
 					if (direction == MOVE_LEFT)
-						if (blocks[x - 1][y].getType() != Block.WALL)
+						if (blocks[x - 1][y].getType() != Block.WALL) {
 							blueBlock.setX(x - 1);
+							blocks[x - 1][y].setType(Block.BLUE_BLOCK);
+						}
 					if (direction == MOVE_RIGHT)
-						if (blocks[x + 1][y].getType() != Block.WALL)
+						if (blocks[x + 1][y].getType() != Block.WALL) {
 							blueBlock.setX(x + 1);
+							blocks[x + 1][y].setType(Block.BLUE_BLOCK);
+						}
 					if (direction == MOVE_DOWN)
-						if (blocks[x][y + 1].getType() != Block.WALL)
+						if (blocks[x][y + 1].getType() != Block.WALL) {
+							blocks[x][y + 1].setType(Block.BLUE_BLOCK);
 							blueBlock.setY(y + 1);
+						}
 					if (direction == MOVE_UP)
-						if (blocks[x][y - 1].getType() != Block.WALL)
+						if (blocks[x][y - 1].getType() != Block.WALL) {
+							blocks[x][y - 1].setType(Block.BLUE_BLOCK);
 							blueBlock.setY(y - 1);
+						}
 				}
 
 				if (blueBlock.getX() == x && blueBlock.getY() == y) {
@@ -110,17 +118,25 @@ public class Game {
 			if (selectedPlayer == Block.PURPLE_PLAYER) {
 				if (purpleBlock.getX() == x && purpleBlock.getY() == y) {
 					if (direction == MOVE_LEFT)
-						if (blocks[x - 1][y].getType() != Block.WALL)
+						if (blocks[x - 1][y].getType() != Block.WALL) {
+							blocks[x - 1][y].setType(Block.PURPLE_BLOCK);
 							purpleBlock.setX(x - 1);
+						}
 					if (direction == MOVE_RIGHT)
-						if (blocks[x + 1][y].getType() != Block.WALL)
+						if (blocks[x + 1][y].getType() != Block.WALL) {
+							blocks[x + 1][y].setType(Block.PURPLE_BLOCK);
 							purpleBlock.setX(x + 1);
+						}
 					if (direction == MOVE_DOWN)
-						if (blocks[x][y + 1].getType() != Block.WALL)
+						if (blocks[x][y + 1].getType() != Block.WALL) {
+							blocks[x][y + 1].setType(Block.PURPLE_BLOCK);
 							purpleBlock.setY(y + 1);
+						}
 					if (direction == MOVE_UP)
-						if (blocks[x][y - 1].getType() != Block.WALL)
+						if (blocks[x][y - 1].getType() != Block.WALL) {
+							blocks[x][y - 1].setType(Block.PURPLE_BLOCK);
 							purpleBlock.setY(y - 1);
+						}
 				}
 
 				if (purpleBlock.getX() == x && purpleBlock.getY() == y) {
@@ -132,17 +148,25 @@ public class Game {
 			if (selectedPlayer == Block.YELLOW_PLAYER) {
 				if (yellowBlock.getX() == x && yellowBlock.getY() == y) {
 					if (direction == MOVE_LEFT)
-						if (blocks[x - 1][y].getType() != Block.WALL)
+						if (blocks[x - 1][y].getType() != Block.WALL) {
+							blocks[x - 1][y].setType(Block.YELLOW_BLOCK);
 							yellowBlock.setX(x - 1);
+						}
 					if (direction == MOVE_RIGHT)
-						if (blocks[x + 1][y].getType() != Block.WALL)
+						if (blocks[x + 1][y].getType() != Block.WALL) {
+							blocks[x + 1][y].setType(Block.YELLOW_BLOCK);
 							yellowBlock.setX(x + 1);
+						}
 					if (direction == MOVE_DOWN)
-						if (blocks[x][y + 1].getType() != Block.WALL)
+						if (blocks[x][y + 1].getType() != Block.WALL) {
+							blocks[x][y + 1].setType(Block.YELLOW_BLOCK);
 							yellowBlock.setY(y + 1);
+						}
 					if (direction == MOVE_UP)
-						if (blocks[x][y - 1].getType() != Block.WALL)
+						if (blocks[x][y - 1].getType() != Block.WALL) {
+							blocks[x][y - 1].setType(Block.YELLOW_BLOCK);
 							yellowBlock.setY(y - 1);
+						}
 				}
 
 				if (yellowBlock.getX() == x && yellowBlock.getY() == y) {
@@ -155,35 +179,51 @@ public class Game {
 
 			blocks[x][y].setType(selectedPlayer);
 		}
-		
+
 		if (blueBlock.getX() == blueFinish.getX() && blueBlock.getY() == blueFinish.getY())
 			blueBlock.setOnFinish(true);
 		else
 			blueBlock.setOnFinish(false);
-		
+
 		if (purpleBlock.getX() == purpleFinish.getX() && purpleBlock.getY() == purpleFinish.getY())
 			purpleBlock.setOnFinish(true);
 		else
 			purpleBlock.setOnFinish(false);
-		
+
 		if (yellowBlock.getX() == yellowFinish.getX() && yellowBlock.getY() == yellowFinish.getY())
 			yellowBlock.setOnFinish(true);
 		else
 			yellowBlock.setOnFinish(false);
-		
+
 //		System.out.println("blue"+blueBlock.getOnFinish());
 //		System.out.println("purple"+purpleBlock.getOnFinish());
 //		System.out.println("yellow"+yellowBlock.getOnFinish());
-		if(blueBlock.getOnFinish() == true && yellowBlock.getOnFinish() == true && purpleBlock.getOnFinish() == true) {
+		if (blueBlock.getOnFinish() == true && yellowBlock.getOnFinish() == true && purpleBlock.getOnFinish() == true) {
 			System.out.println("vittoria");
-			if(Maps.index == 3)
+			if (Maps.index == 3)
 				System.out.println("Fine gioco");
 			else
-				Maps.loadRoom(Maps.index+1);
+				Maps.loadRoom(Maps.index + 1);
 		}
+		
+		
+		blocks[purpleFinish.getX()][purpleFinish.getY()].setType(Block.PURPLE_FINISH);
+		blocks[blueFinish.getX()][blueFinish.getY()].setType(Block.BLUE_FINISH);
+		blocks[yellowFinish.getX()][yellowFinish.getY()].setType(Block.YELLOW_FINISH);
+		
+		blocks[yellowBlock.getX()][yellowBlock.getY()].setType(Block.YELLOW_BLOCK);
+		blocks[purpleBlock.getX()][purpleBlock.getY()].setType(Block.PURPLE_BLOCK);
+		blocks[blueBlock.getX()][blueBlock.getY()].setType(Block.BLUE_BLOCK);
+		
+		
+		
 		if (Main.onMoveRefreshIA) {
 			Main.startIA();
 		}
+		
+		
+		
+		
 	}
 
 	public void changePlayer(int changePlayer) {

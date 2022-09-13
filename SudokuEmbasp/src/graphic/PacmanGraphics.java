@@ -5,6 +5,8 @@ import javafx.scene.layout.Background;
 import javafx.scene.layout.BackgroundFill;
 import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
+import main.Main;
+import maps.Maps;
 
 public class PacmanGraphics extends StackPane {
 
@@ -28,7 +30,7 @@ public class PacmanGraphics extends StackPane {
 		
 		// disegno i player e do priorità a quello scelto cosi da tenerlo sempre in vista
 		if (Game.selectedPlayer == Block.BLUE_PLAYER) {	
-			
+		
 			canvas.getGraphicsContext2D().setFill(Color.LIGHTPINK);
 			canvas.getGraphicsContext2D().fillRect(Game.purpleFinish.getX()* Settings.block, Game.purpleFinish.getY()* Settings.block, Settings.block, Settings.block);
 			canvas.getGraphicsContext2D().setFill(Color.LIGHTYELLOW);
@@ -48,7 +50,14 @@ public class PacmanGraphics extends StackPane {
 			canvas.getGraphicsContext2D().setFill(Color.BLUE);
 			canvas.getGraphicsContext2D().fillOval(Game.bluePlayer.getX()* Settings.block, Game.bluePlayer.getY()* Settings.block,  Settings.block,   Settings.block);
 			canvas.getGraphicsContext2D().setFill(Color.BLUE);
-			canvas.getGraphicsContext2D().fillRect(Game.blueBlock.getX()* Settings.block, Game.blueBlock.getY()* Settings.block,  Settings.block,   Settings.block);		
+			canvas.getGraphicsContext2D().fillRect(Game.blueBlock.getX()* Settings.block, Game.blueBlock.getY()* Settings.block,  Settings.block,   Settings.block);	
+			if (Main.listaPercorsoBlu.size() > 0) {
+				System.out.println("disegnoblu");
+				for(PercorsoBlu i: Main.listaPercorsoBlu) {
+					canvas.getGraphicsContext2D().setFill(Color.DARKBLUE);
+					canvas.getGraphicsContext2D().fillOval(i.getX()* Settings.block+10, i.getY()* Settings.block+10 ,  Settings.block*0.5,   Settings.block*0.5);
+				}
+			}
 		} else if (Game.selectedPlayer == Block.YELLOW_PLAYER) {
 			
 			canvas.getGraphicsContext2D().setFill(Color.LIGHTPINK);
@@ -120,5 +129,10 @@ public class PacmanGraphics extends StackPane {
 				}
 			}
 		}
+		
+		
+		 for (int i = 0; i < 17; i++) { for (int j = 0; j < 17; j++) {
+			 System.out.print(Maps.matrixGame[i][j].getType() +" "); }
+			 System.out.println(); }
 	}
 }
