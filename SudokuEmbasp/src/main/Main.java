@@ -5,6 +5,9 @@ import java.lang.reflect.InvocationTargetException;
 import graphic.Block;
 import graphic.Game;
 import graphic.PacmanGraphics;
+import graphic.PercorsoBlu;
+import graphic.PercorsoGiallo;
+import graphic.PercorsoViola;
 import graphic.Settings;
 import it.unical.mat.embasp.base.Handler;
 import it.unical.mat.embasp.base.InputProgram;
@@ -32,7 +35,7 @@ public class Main extends Application {
 	private static int N = 17;
 	private static String encodingResource = "encodings/ccmmyy";
 	private static Handler handler;
-	public static Boolean onMoveRefreshIA = false;
+	public static Boolean onMoveRefreshIA = true;
 	
 	
 	@Override
@@ -80,7 +83,13 @@ public class Main extends Application {
 				}
 			}
 		}
-
+		try {
+			facts.addObjectInput(new PercorsoBlu(0,0,0));
+			facts.addObjectInput(new PercorsoGiallo(0,0,0));
+			facts.addObjectInput(new PercorsoViola(0,0,0));
+		} catch (Exception e1) {
+			e1.printStackTrace();
+		}
 		handler.addProgram(facts);
 		InputProgram encoding = new ASPInputProgram();
 		encoding.addFilesPath(encodingResource);
@@ -98,20 +107,27 @@ public class Main extends Application {
 			
 			index++;
 			if (index == answersets.getAnswersets().size()) {
-				System.out.println("\n[Ottimo] (UltimoAS):");
-				System.out.println(a.getAnswerSet());
+				//System.out.println("\n[Ottimo] (UltimoAS):");
+				//System.out.println(a.getAnswerSet());
 				try {
 					for (Object obj : a.getAtoms()) {
-						// System.out.println(obj);
+						//System.out.println(obj);
 						// System.out.println(a.getAtoms());
-						if (!(obj instanceof Block))
-							continue;
-
-						Block cell = (Block) obj;
-						// System.out.println(cell.getX());
-						// System.out.println(cell.getY());
-						Maps.matrixGame[cell.getX()][cell.getY()].setType(cell.getType());
-
+						if (obj instanceof PercorsoBlu) {
+							PercorsoBlu cell = (PercorsoBlu) obj;
+							if(cell.getType()==1)
+								System.out.println("BLU: " + cell.getX() + "-" + cell.getY());
+						}
+						if (obj instanceof PercorsoViola) {
+							PercorsoViola cell = (PercorsoViola) obj;
+							if(cell.getType()==2)
+								System.out.println("VIOLA: " + cell.getX() + "-" + cell.getY());
+						}
+						if (obj instanceof PercorsoGiallo) {
+							PercorsoGiallo cell = (PercorsoGiallo) obj;
+							if(cell.getType()==3)
+								System.out.println("GIALLO: " + cell.getX() + "-" + cell.getY());
+						}
 						/*
 						 * for (int i = 0; i < 17; i++) { for (int j = 0; j < 17; j++) {
 						 * System.out.print(Maps.matrixGame[i][j].getType() +" "); }

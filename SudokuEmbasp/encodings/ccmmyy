@@ -18,20 +18,20 @@ arco(X1,Y1,X2,Y2) :- cell(X1,Y1,N1), N1<>5, N1<>4, cell(X2,Y2,N2), N2<>5, N2<>4,
 arco(X1,Y1,X2,Y2) :- cell(X1,Y1,N1), N1<>5, N1<>4, cell(X2,Y2,N2), N2<>5, N2<>4, X1-1=X2, Y1=Y2.
 arco(X1,Y1,X2,Y2) :- cell(X1,Y1,N1), N1<>5, N1<>4, cell(X2,Y2,N2), N2<>5, N2<>4, X1+1=X2, Y1=Y2.
 
-percorsoblu(X2,Y2) | notpercorsoblu(X2,Y2) :- bloccoblu(X1,Y1), arco(X1,Y1,X2,Y2).
-percorsoblu(X2,Y2) | notpercorsoblu(X2,Y2) :- percorsoblu(X1,Y1), arco(X1,Y1,X2,Y2), not fineblu(X1,Y1).
-visitatoblu(X,Y) :- percorsoblu(X,Y).
+percorsoblu(X2,Y2,N) | notpercorsoblu(X2,Y2,N) :- bloccoblu(X1,Y1), arco(X1,Y1,X2,Y2), N=1.
+percorsoblu(X2,Y2,N) | notpercorsoblu(X2,Y2,N) :- percorsoblu(X1,Y1,N), arco(X1,Y1,X2,Y2), not fineblu(X1,Y1), N=1.
+visitatoblu(X,Y) :- percorsoblu(X,Y,_).
 :- fineblu(X,Y), not visitatoblu(X,Y).
-:~ #count{X,Y: percorsoblu(X,Y)}=K. [K@1]
+:~ #count{X,Y: percorsoblu(X,Y,_)}=K. [K@1]
 
-percorsoviola(X2,Y2) | notpercorsoviola(X2,Y2) :- bloccoviola(X1,Y1), arco(X1,Y1,X2,Y2).
-percorsoviola(X2,Y2) | notpercorsoviola(X2,Y2) :- percorsoviola(X1,Y1), arco(X1,Y1,X2,Y2), not fineviola(X1,Y1).
-visitatoviola(X,Y) :- percorsoviola(X,Y).
+percorsoviola(X2,Y2,N) | notpercorsoviola(X2,Y2,N) :- bloccoviola(X1,Y1), arco(X1,Y1,X2,Y2), N=2.
+percorsoviola(X2,Y2,N) | notpercorsoviola(X2,Y2,N) :- percorsoviola(X1,Y1,N), arco(X1,Y1,X2,Y2), not fineviola(X1,Y1), N=2.
+visitatoviola(X,Y) :- percorsoviola(X,Y,_).
 :- fineviola(X,Y), not visitatoviola(X,Y).
-:~ #count{X,Y: percorsoviola(X,Y)}=K. [K@2]
+:~ #count{X,Y: percorsoviola(X,Y,_)}=K. [K@2]
 
-percorsogiallo(X2,Y2) | notpercorsogiallo(X2,Y2) :- bloccogiallo(X1,Y1), arco(X1,Y1,X2,Y2).
-percorsogiallo(X2,Y2) | notpercorsogiallo(X2,Y2) :- percorsogiallo(X1,Y1), arco(X1,Y1,X2,Y2), not finegiallo(X1,Y1).
-visitatogiallo(X,Y) :- percorsogiallo(X,Y).
+percorsogiallo(X2,Y2,N) | notpercorsogiallo(X2,Y2,N) :- bloccogiallo(X1,Y1), arco(X1,Y1,X2,Y2), N=3.
+percorsogiallo(X2,Y2,N) | notpercorsogiallo(X2,Y2,N) :- percorsogiallo(X1,Y1,N), arco(X1,Y1,X2,Y2), not finegiallo(X1,Y1), N=3.
+visitatogiallo(X,Y) :- percorsogiallo(X,Y,_).
 :- finegiallo(X,Y), not visitatogiallo(X,Y).
-:~ #count{X,Y: percorsogiallo(X,Y)}=K. [K@3]
+:~ #count{X,Y: percorsogiallo(X,Y,_)}=K. [K@3]
