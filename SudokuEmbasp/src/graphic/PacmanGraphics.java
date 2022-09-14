@@ -28,7 +28,7 @@ public class PacmanGraphics extends StackPane {
 		canvas.getGraphicsContext2D().clearRect(0, 0, canvas.getWidth(), canvas.getHeight());
 		
 		
-		// disegno i player e do priorità a quello scelto cosi da tenerlo sempre in vista
+		// disegno i player e do prioritï¿½ a quello scelto cosi da tenerlo sempre in vista
 		if (Game.selectedPlayer == Block.BLUE_PLAYER) {	
 		
 			canvas.getGraphicsContext2D().setFill(Color.LIGHTPINK);
@@ -52,7 +52,6 @@ public class PacmanGraphics extends StackPane {
 			canvas.getGraphicsContext2D().setFill(Color.BLUE);
 			canvas.getGraphicsContext2D().fillRect(Game.blueBlock.getX()* Settings.block, Game.blueBlock.getY()* Settings.block,  Settings.block,   Settings.block);	
 			if (Main.listaPercorsoBlu.size() > 0) {
-				System.out.println("disegnoblu");
 				for(PercorsoBlu i: Main.listaPercorsoBlu) {
 					canvas.getGraphicsContext2D().setFill(Color.DARKBLUE);
 					canvas.getGraphicsContext2D().fillOval(i.getX()* Settings.block+10, i.getY()* Settings.block+10 ,  Settings.block*0.5,   Settings.block*0.5);
@@ -81,7 +80,6 @@ public class PacmanGraphics extends StackPane {
 			canvas.getGraphicsContext2D().setFill(Color.YELLOW);
 			canvas.getGraphicsContext2D().fillOval(Game.yellowPlayer.getX()* Settings.block, Game.yellowPlayer.getY()* Settings.block, Settings.block, Settings.block);
 			if (Main.listaPercorsoGiallo.size() > 0) {
-				System.out.println("disegnogiallo");
 				for(PercorsoGiallo i: Main.listaPercorsoGiallo) {
 					canvas.getGraphicsContext2D().setFill(Color.DARKGOLDENROD);
 					canvas.getGraphicsContext2D().fillOval(i.getX()* Settings.block+10, i.getY()* Settings.block+10 ,  Settings.block*0.5,   Settings.block*0.5);
@@ -109,7 +107,6 @@ public class PacmanGraphics extends StackPane {
 			canvas.getGraphicsContext2D().setFill(Color.PURPLE);
 			canvas.getGraphicsContext2D().fillOval(Game.purplePlayer.getX()* Settings.block, Game.purplePlayer.getY()* Settings.block, Settings.block, Settings.block);	
 			if (Main.listaPercorsoViola.size() > 0) {
-				System.out.println("disegnoviola");
 				for(PercorsoViola i: Main.listaPercorsoViola) {
 					canvas.getGraphicsContext2D().setFill(Color.DARKVIOLET);
 					canvas.getGraphicsContext2D().fillOval(i.getX()* Settings.block+10, i.getY()* Settings.block+10 ,  Settings.block*0.5,   Settings.block*0.5);
@@ -144,8 +141,6 @@ public class PacmanGraphics extends StackPane {
 		}
 		
 		
-		 for (int i = 0; i < 17; i++) { for (int j = 0; j < 17; j++) {
-			 System.out.print(Maps.matrixGame[i][j].getType() +" "); }
-			 System.out.println(); }
+		 
 	}
 }

@@ -11,6 +11,7 @@ import graphic.PercorsoViola;
 import graphic.Settings;
 import it.unical.mat.embasp.base.Handler;
 import it.unical.mat.embasp.base.InputProgram;
+import it.unical.mat.embasp.base.OptionDescriptor;
 import it.unical.mat.embasp.base.Output;
 import it.unical.mat.embasp.languages.IllegalAnnotationException;
 import it.unical.mat.embasp.languages.ObjectNotValidException;
@@ -108,11 +109,12 @@ public class Main extends Application {
 		handler.addProgram(encoding);
 		Output o = handler.startSync();
 		AnswerSets answersets = (AnswerSets) o;
+		//answersets.getOptimalAnswerSets();
 
 		// System.out.println("\n" + answersets.getAnswersets());
 		int index = 1;
 
-		for (AnswerSet a : answersets.getAnswersets()) {
+		for (AnswerSet a : answersets.getOptimalAnswerSets()) {
 			// System.out.println(a);
 			// System.out.println(answersets.getAnswersets().size());
 			// System.out.println(a.getAnswerSet());
@@ -120,45 +122,44 @@ public class Main extends Application {
 			index++;
 	
 			
-			if (index == answersets.getAnswersets().size()) {
+			//if (index == answersets.getOptimalAnswerSets().size()) {
 				// System.out.println("\n[Ottimo] (UltimoAS):");
 				// System.out.println(a.getAnswerSet());
-				try {
-					for (Object obj : a.getAtoms()) {
-						// System.out.println(obj);
-						// System.out.println(a.getAtoms());
-						if (obj instanceof PercorsoBlu) {
-							PercorsoBlu cell = (PercorsoBlu) obj;
-							if (cell.getType() == 1) {
-								System.out.println("BLU: " + cell.getX() + "-" + cell.getY());
-								listaPercorsoBlu.add(cell);
-							}
+			try {
+				for (Object obj : a.getAtoms()) {
+					// System.out.println(obj);
+					// System.out.println(a.getAtoms());
+					if (obj instanceof PercorsoBlu) {
+						PercorsoBlu cell = (PercorsoBlu) obj;
+						if (cell.getType() == 1) {
+							System.out.println("BLU: " + cell.getX() + "-" + cell.getY());
+							listaPercorsoBlu.add(cell);
 						}
-						if (obj instanceof PercorsoViola) {
-							PercorsoViola cell = (PercorsoViola) obj;
-							if (cell.getType() == 2) {
-								listaPercorsoViola.add(cell);
-
-								System.out.println("VIOLA: " + cell.getX() + "-" + cell.getY());
-							}
-						}
-						if (obj instanceof PercorsoGiallo) {
-							PercorsoGiallo cell = (PercorsoGiallo) obj;
-							if (cell.getType() == 3) {
-								System.out.println("GIALLO: " + cell.getX() + "-" + cell.getY());
-								listaPercorsoGiallo.add(cell);
-
-							}
-						}
-						
-						
-						
-
 					}
-				} catch (Exception e) {
+					if (obj instanceof PercorsoViola) {
+						PercorsoViola cell = (PercorsoViola) obj;
+						if (cell.getType() == 2) {
+							listaPercorsoViola.add(cell);
 
-					e.printStackTrace();
+							System.out.println("VIOLA: " + cell.getX() + "-" + cell.getY());
+						}
+					}
+					if (obj instanceof PercorsoGiallo) {
+						PercorsoGiallo cell = (PercorsoGiallo) obj;
+						if (cell.getType() == 3) {
+							System.out.println("GIALLO: " + cell.getX() + "-" + cell.getY());
+							listaPercorsoGiallo.add(cell);
+
+						}
+					}
+					
+					
+					
+
 				}
+			} catch (Exception e) {
+
+				e.printStackTrace();
 			}
 		}
 
