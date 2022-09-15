@@ -8,12 +8,12 @@ import javafx.scene.paint.Color;
 import main.Main;
 import maps.Maps;
 
-public class PacmanGraphics extends StackPane {
+public class Graphics extends StackPane {
 
 	private Canvas canvas;
 	private Game game;
 
-	public PacmanGraphics(Game game) {
+	public Graphics(Game game) {
 		this.game = game;
 		canvas = new Canvas();
 		canvas.setFocusTraversable(true);

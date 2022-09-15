@@ -4,7 +4,7 @@ import java.util.ArrayList;
 
 import graphic.Block;
 import graphic.Game;
-import graphic.PacmanGraphics;
+import graphic.Graphics;
 import graphic.PercorsoBlu;
 import graphic.PercorsoGiallo;
 import graphic.PercorsoViola;
@@ -63,7 +63,7 @@ public class Main extends Application {
 
 	public static void startGame() {
 		Game game = new Game();
-		PacmanGraphics pg = new PacmanGraphics(game);
+		Graphics pg = new Graphics(game);
 		Scene scene = new Scene(pg, Settings.size, Settings.size);
 		window.centerOnScreen();
 		window.setScene(scene);

@@ -7,9 +7,9 @@ import javafx.stage.Stage;
 public class MovementController implements EventHandler<KeyEvent> {
 
 	private Game game;
-	private PacmanGraphics graphics;
+	private Graphics graphics;
 
-	public MovementController(Game game, PacmanGraphics graphics) {
+	public MovementController(Game game, Graphics graphics) {
 		this.game = game;
 		this.graphics = graphics;
 	}
