@@ -345,7 +345,19 @@ public class Game {
 			move(MOVE_DOWN);
 		}
 		
-		//richiamare il draw
+
+		
+		new Thread(()->{  
+			
+			try {
+				Thread.sleep(2000);
+			} catch (InterruptedException e) {
+				e.printStackTrace();
+			}
+			autoMove();
+			Graphics.draw();
+	    }).start();
+		
 	}
 	
 }

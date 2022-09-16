@@ -6,12 +6,11 @@ import javafx.scene.layout.BackgroundFill;
 import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
 import main.Main;
-import maps.Maps;
 
 public class Graphics extends StackPane {
 
-	private Canvas canvas;
-	private Game game;
+	private static Canvas canvas;
+	private static Game game;
 
 	public Graphics(Game game) {
 		this.game = game;
@@ -24,7 +23,7 @@ public class Graphics extends StackPane {
 		canvas.heightProperty().bind(this.heightProperty());
 	}
 
-	public void draw() {
+	public static void draw() {
 		canvas.getGraphicsContext2D().clearRect(0, 0, canvas.getWidth(), canvas.getHeight());
 		
 		
