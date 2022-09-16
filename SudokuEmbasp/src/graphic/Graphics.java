@@ -53,14 +53,18 @@ public class Graphics extends StackPane {
 			canvas.getGraphicsContext2D().fillRect(Game.blueBlock.getX()* Settings.block, Game.blueBlock.getY()* Settings.block,  Settings.block,   Settings.block);	
 			if (Main.listaPercorsoBlu.size() > 0) {
 				for(PercorsoBlu i: Main.listaPercorsoBlu) {
-					canvas.getGraphicsContext2D().setFill(Color.DARKBLUE);
-					canvas.getGraphicsContext2D().fillOval(i.getX()* Settings.block+10, i.getY()* Settings.block+10 ,  Settings.block*0.5,   Settings.block*0.5);
+					if(i.getType()!=0) {
+						canvas.getGraphicsContext2D().setFill(Color.DARKBLUE);
+						canvas.getGraphicsContext2D().fillOval(i.getX()* Settings.block+10, i.getY()* Settings.block+10 ,  Settings.block*0.5,   Settings.block*0.5);
+					}
 				}
 			}
 			if (Main.listaPBlu.size() > 0) {
 				for(PBlu i: Main.listaPBlu) {
-					canvas.getGraphicsContext2D().setFill(Color.DARKBLUE);
-					canvas.getGraphicsContext2D().fillOval(i.getX()* Settings.block+10, i.getY()* Settings.block+10 ,  Settings.block*0.5,   Settings.block*0.5);
+					if(i.getType()!=0) {
+						canvas.getGraphicsContext2D().setFill(Color.DARKBLUE);
+						canvas.getGraphicsContext2D().fillOval(i.getX()* Settings.block+10, i.getY()* Settings.block+10 ,  Settings.block*0.5,   Settings.block*0.5);
+					}
 				}
 			}
 		} else if (Game.selectedPlayer == Block.YELLOW_PLAYER) {
@@ -87,14 +91,18 @@ public class Graphics extends StackPane {
 			canvas.getGraphicsContext2D().fillOval(Game.yellowPlayer.getX()* Settings.block, Game.yellowPlayer.getY()* Settings.block, Settings.block, Settings.block);
 			if (Main.listaPercorsoGiallo.size() > 0) {
 				for(PercorsoGiallo i: Main.listaPercorsoGiallo) {
-					canvas.getGraphicsContext2D().setFill(Color.DARKGOLDENROD);
-					canvas.getGraphicsContext2D().fillOval(i.getX()* Settings.block+10, i.getY()* Settings.block+10 ,  Settings.block*0.5,   Settings.block*0.5);
+					if(i.getType() != 0) {
+						canvas.getGraphicsContext2D().setFill(Color.DARKGOLDENROD);
+						canvas.getGraphicsContext2D().fillOval(i.getX()* Settings.block+10, i.getY()* Settings.block+10 ,  Settings.block*0.5,   Settings.block*0.5);
+					}
 				}
 			}
 			if (Main.listaPGiallo.size() > 0) {
 				for(PGiallo i: Main.listaPGiallo) {
-					canvas.getGraphicsContext2D().setFill(Color.DARKGOLDENROD);
-					canvas.getGraphicsContext2D().fillOval(i.getX()* Settings.block+10, i.getY()* Settings.block+10 ,  Settings.block*0.5,   Settings.block*0.5);
+					if(i.getType() != 0) {
+						canvas.getGraphicsContext2D().setFill(Color.DARKGOLDENROD);
+						canvas.getGraphicsContext2D().fillOval(i.getX()* Settings.block+10, i.getY()* Settings.block+10 ,  Settings.block*0.5,   Settings.block*0.5);
+					}
 				}
 			}
 		}else if (Game.selectedPlayer == Block.PURPLE_PLAYER) {
@@ -120,14 +128,18 @@ public class Graphics extends StackPane {
 			canvas.getGraphicsContext2D().fillOval(Game.purplePlayer.getX()* Settings.block, Game.purplePlayer.getY()* Settings.block, Settings.block, Settings.block);	
 			if (Main.listaPercorsoViola.size() > 0) {
 				for(PercorsoViola i: Main.listaPercorsoViola) {
-					canvas.getGraphicsContext2D().setFill(Color.DARKVIOLET);
-					canvas.getGraphicsContext2D().fillOval(i.getX()* Settings.block+10, i.getY()* Settings.block+10 ,  Settings.block*0.5,   Settings.block*0.5);
+					if(i.getType() != 0) {
+						canvas.getGraphicsContext2D().setFill(Color.DARKVIOLET);
+						canvas.getGraphicsContext2D().fillOval(i.getX()* Settings.block+10, i.getY()* Settings.block+10 ,  Settings.block*0.5,   Settings.block*0.5);
+					}
 				}
 			}
 			if (Main.listaPViola.size() > 0) {
 				for(PViola i: Main.listaPViola) {
-					canvas.getGraphicsContext2D().setFill(Color.DARKVIOLET);
-					canvas.getGraphicsContext2D().fillOval(i.getX()* Settings.block+10, i.getY()* Settings.block+10 ,  Settings.block*0.5,   Settings.block*0.5);
+					if(i.getType() != 0) {
+						canvas.getGraphicsContext2D().setFill(Color.DARKVIOLET);
+						canvas.getGraphicsContext2D().fillOval(i.getX()* Settings.block+10, i.getY()* Settings.block+10 ,  Settings.block*0.5,   Settings.block*0.5);
+					}
 				}
 			}
 		}

@@ -75,6 +75,7 @@ public class Game {
 
 	public void move(int direction) {
 		changePlayer(selectedPlayer);
+		clearpaths();
 
 		if (direction < MOVE_RIGHT && direction > MOVE_DOWN)
 			return;
@@ -179,6 +180,7 @@ public class Game {
 			}
 
 			blocks[x][y].setType(selectedPlayer);
+			
 		}
 
 		if (blueBlock.getX() == blueFinish.getX() && blueBlock.getY() == blueFinish.getY())
@@ -221,10 +223,6 @@ public class Game {
 		/*if (Main.onMoveRefreshIA) {
 			Main.startIA();
 		}*/
-		
-		
-		
-		
 	}
 
 	public void changePlayer(int changePlayer) {
@@ -277,6 +275,40 @@ public class Game {
 
 	public int getSelectedPlayer() {
 		return selectedPlayer;
+	}
+	
+	public void clearpaths() {
+		for(PBlu pb:Main.listaPBlu) {
+			if(pb.getX() == bluePlayer.getX() && pb.getY() == bluePlayer.getY()) {
+				pb.setType(0);
+			}
+		}
+		for(PGiallo pb:Main.listaPGiallo) {
+			if(pb.getX() == yellowPlayer.getX() && pb.getY() == yellowPlayer.getY()) {
+				pb.setType(0);
+			}
+		}
+		for(PViola pb:Main.listaPViola) {
+			if(pb.getX() == purplePlayer.getX() && pb.getY() == purplePlayer.getY()) {
+				pb.setType(0);
+			}
+		}
+		for(PercorsoBlu pb:Main.listaPercorsoBlu) {
+			if(pb.getX() == blueBlock.getX() && pb.getY() == blueBlock.getY()) {
+				pb.setType(0);
+			}
+		}
+		for(PercorsoGiallo pb:Main.listaPercorsoGiallo) {
+			if(pb.getX() == yellowBlock.getX() && pb.getY() == yellowBlock.getY()) {
+				pb.setType(0);
+			}
+		}
+		for(PercorsoViola pb:Main.listaPercorsoViola) {
+			if(pb.getX() == purpleBlock.getX() && pb.getY() == purpleBlock.getY()) {
+				pb.setType(0);
+			}
+		}
+		
 	}
 
 }
