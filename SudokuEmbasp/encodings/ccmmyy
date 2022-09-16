@@ -35,3 +35,21 @@ percorsogiallo(X2,Y2,N) | notpercorsogiallo(X2,Y2,N) :- percorsogiallo(X1,Y1,N),
 visitatogiallo(X,Y) :- percorsogiallo(X,Y,_).
 :- finegiallo(X,Y), not visitatogiallo(X,Y).
 :~ #count{X,Y: percorsogiallo(X,Y,_)}=K. [K@3]
+
+pblu(X2,Y2,N) | notpblu(X2,Y2,N) :- pallinoblu(X1,Y1), arco(X1,Y1,X2,Y2), N=1.
+pblu(X2,Y2,N) | notpblu(X2,Y2,N) :- pblu(X1,Y1,N), arco(X1,Y1,X2,Y2), not bloccoblu(X1,Y1), N=1.
+visblu(X,Y) :- pblu(X,Y,_).
+:- bloccoblu(X,Y), not visblu(X,Y).
+:~ #count{X,Y: pblu(X,Y,_)}=K. [K@4]
+
+pviola(X2,Y2,N) | notpviola(X2,Y2,N) :- pallinoviola(X1,Y1), arco(X1,Y1,X2,Y2), N=2.
+pviola(X2,Y2,N) | notpviola(X2,Y2,N) :- pviola(X1,Y1,N), arco(X1,Y1,X2,Y2), not bloccoviola(X1,Y1), N=2.
+visviola(X,Y) :- pviola(X,Y,_).
+:- bloccoviola(X,Y), not visviola(X,Y).
+:~ #count{X,Y: pviola(X,Y,_)}=K. [K@5]
+
+pgiallo(X2,Y2,N) | notpgiallo(X2,Y2,N) :- pallinogiallo(X1,Y1), arco(X1,Y1,X2,Y2), N=3.
+pgiallo(X2,Y2,N) | notpgiallo(X2,Y2,N) :- pgiallo(X1,Y1,N), arco(X1,Y1,X2,Y2), not bloccogiallo(X1,Y1), N=3.
+visgiallo(X,Y) :- pgiallo(X,Y,_).
+:- bloccogiallo(X,Y), not visgiallo(X,Y).
+:~ #count{X,Y: pgiallo(X,Y,_)}=K. [K@6]

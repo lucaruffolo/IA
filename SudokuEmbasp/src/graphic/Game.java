@@ -40,6 +40,7 @@ public class Game {
 	public Game() { // generazione map
 
 		blocks = Maps.loadRoom(0);
+		
 //		for (int i = 0; i < blocks.length; i++) {
 //			for (int j = 0; j < blocks[i].length; j++) {
 //				blocks[i][j] = new Block(Block.EMPTY);
@@ -217,9 +218,9 @@ public class Game {
 		
 		
 		
-		if (Main.onMoveRefreshIA) {
+		/*if (Main.onMoveRefreshIA) {
 			Main.startIA();
-		}
+		}*/
 		
 		
 		

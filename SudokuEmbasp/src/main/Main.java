@@ -5,6 +5,9 @@ import java.util.ArrayList;
 import graphic.Block;
 import graphic.Game;
 import graphic.Graphics;
+import graphic.PBlu;
+import graphic.PGiallo;
+import graphic.PViola;
 import graphic.PercorsoBlu;
 import graphic.PercorsoGiallo;
 import graphic.PercorsoViola;
@@ -39,6 +42,9 @@ public class Main extends Application {
 	public static ArrayList<PercorsoBlu> listaPercorsoBlu;
 	public static ArrayList<PercorsoGiallo> listaPercorsoGiallo;
 	public static ArrayList<PercorsoViola> listaPercorsoViola;
+	public static ArrayList<PBlu> listaPBlu;
+	public static ArrayList<PViola> listaPViola;
+	public static ArrayList<PGiallo> listaPGiallo;
 
 	@Override
 	public void start(Stage primaryStage) throws Exception {
@@ -58,6 +64,10 @@ public class Main extends Application {
 		listaPercorsoBlu = new ArrayList<PercorsoBlu>();
 		listaPercorsoGiallo = new ArrayList<PercorsoGiallo>();
 		listaPercorsoViola = new ArrayList<PercorsoViola>();
+		
+		listaPBlu = new ArrayList<PBlu>();
+		listaPGiallo = new ArrayList<PGiallo>();
+		listaPViola = new ArrayList<PViola>();
 		launch(args);
 	}
 
@@ -68,7 +78,7 @@ public class Main extends Application {
 		window.centerOnScreen();
 		window.setScene(scene);
 		//pg.draw();
-		startIA();
+		//startIA();
 		pg.draw();
 	}
 
@@ -77,6 +87,10 @@ public class Main extends Application {
 		listaPercorsoBlu.clear();
 		listaPercorsoGiallo.clear();
 		listaPercorsoViola.clear();
+		
+		listaPBlu.clear();
+		listaPViola.clear();
+		listaPGiallo.clear();
 		
 		handler = new DesktopHandler(new DLV2DesktopService("lib/dlv2.exe"));
 		try {
@@ -100,6 +114,9 @@ public class Main extends Application {
 			facts.addObjectInput(new PercorsoBlu(0, 0, 0));
 			facts.addObjectInput(new PercorsoGiallo(0, 0, 0));
 			facts.addObjectInput(new PercorsoViola(0, 0, 0));
+			facts.addObjectInput(new PBlu(0,0,0));
+			facts.addObjectInput(new PViola(0,0,0));
+			facts.addObjectInput(new PGiallo(0,0,0));
 		} catch (Exception e1) {
 			e1.printStackTrace();
 		}
@@ -140,7 +157,6 @@ public class Main extends Application {
 						PercorsoViola cell = (PercorsoViola) obj;
 						if (cell.getType() == 2) {
 							listaPercorsoViola.add(cell);
-
 							System.out.println("VIOLA: " + cell.getX() + "-" + cell.getY());
 						}
 					}
@@ -152,10 +168,28 @@ public class Main extends Application {
 
 						}
 					}
+					if (obj instanceof PBlu) {
+						PBlu cell = (PBlu) obj;
+						if (cell.getType() == 1) {
+							System.out.println("BLU pierpy: " + cell.getX() + "-" + cell.getY());
+							listaPBlu.add(cell);
+						}
+					}
+					if (obj instanceof PViola) {
+						PViola cell = (PViola) obj;
+						if (cell.getType() == 2) {
+							System.out.println("VIOLA pierpy: " + cell.getX() + "-" + cell.getY());
+							listaPViola.add(cell);
+						}
+					}
+					if (obj instanceof PGiallo) {
+						PGiallo cell = (PGiallo) obj;
+						if (cell.getType() == 3) {
+							System.out.println("GIALLO pierpy: " + cell.getX() + "-" + cell.getY());
+							listaPGiallo.add(cell);
+						}
+					}
 					
-					
-					
-
 				}
 			} catch (Exception e) {
 

@@ -12,6 +12,7 @@ import finishZone.YellowFinish;
 import graphic.Block;
 import graphic.Game;
 import graphic.Settings;
+import main.Main;
 import player.BluePlayer;
 import player.PurplePlayer;
 import player.YellowPlayer;
@@ -28,7 +29,7 @@ public class Maps {
 	}
 	
 	public static Block[][] loadRoom(int index) {
-
+		
 		Maps.index = index;
 		ArrayList<ArrayList<Block>> matrix = new ArrayList<ArrayList<Block>>();
 		try {
@@ -83,6 +84,7 @@ public class Maps {
 				}
 			}
 		}
+		Main.startIA();
 		return matrixGame;
 	}
 }
