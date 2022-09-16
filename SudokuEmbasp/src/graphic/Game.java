@@ -37,6 +37,7 @@ public class Game {
 	public static YellowFinish yellowFinish = new YellowFinish(10, 11);
 	public static PurpleFinish purpleFinish = new PurpleFinish(9, 12);
 
+
 	public Game() { // generazione map
 
 		blocks = Maps.loadRoom(0);
@@ -310,5 +311,41 @@ public class Game {
 		}
 		
 	}
-
+	
+	public void autoMove() {
+		
+		int xb = bluePlayer.getX();
+		int yb = bluePlayer.getY();
+		int distanzaBlu = 100;
+		int indiceBlu = 0;
+		for(PBlu i : Main.listaPBlu) {
+			int ix = i.getX();
+			int iy = i.getY();
+			int d = (ix - xb) + (iy - yb);
+			if(d < distanzaBlu) {
+				distanzaBlu = d;
+				indiceBlu = Main.listaPBlu.indexOf(i);
+			}
+		}
+		System.out.println(Main.listaPBlu.get(indiceBlu).getX()+" "+Main.listaPBlu.get(indiceBlu).getY());
+		if((xb-1)== Main.listaPBlu.get(indiceBlu).getX() && yb == Main.listaPBlu.get(indiceBlu).getY()) {
+			System.out.println("sx");
+			move(MOVE_LEFT);
+		}
+		if((xb+1)== Main.listaPBlu.get(indiceBlu).getX() && yb == Main.listaPBlu.get(indiceBlu).getY()) {
+			System.out.println("dx");
+			move(MOVE_RIGHT);
+		}
+		if(xb == Main.listaPBlu.get(indiceBlu).getX() && (yb-1) == Main.listaPBlu.get(indiceBlu).getY()) {
+			System.out.println("up");
+			move(MOVE_UP);
+		}
+		if(xb == Main.listaPBlu.get(indiceBlu).getX() && (yb+1) == Main.listaPBlu.get(indiceBlu).getY()) {
+			System.out.println("dw");
+			move(MOVE_DOWN);
+		}
+		
+		//richiamare il draw
+	}
+	
 }

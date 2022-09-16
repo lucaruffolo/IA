@@ -80,6 +80,7 @@ public class Main extends Application {
 		//pg.draw();
 		//startIA();
 		pg.draw();
+		game.autoMove();
 	}
 
 	public static void startIA() {
@@ -196,7 +197,7 @@ public class Main extends Application {
 				e.printStackTrace();
 			}
 		}
-
+		
 	}
 
 }
