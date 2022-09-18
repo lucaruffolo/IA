@@ -127,7 +127,7 @@ public class Main extends Application {
 		handler.addProgram(encoding);
 		Output o = handler.startSync();
 		AnswerSets answersets = (AnswerSets) o;
-		//answersets.getOptimalAnswerSets();
+		//answersets.getOptimalAnswerSets();/
 
 		// System.out.println("\n" + answersets.getAnswersets());
 		int index = 1;

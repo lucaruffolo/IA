@@ -346,7 +346,7 @@ public class Game {
 		}
 		
 
-		
+		// thread movimento e disegno
 		new Thread(()->{  
 			
 			try {
