@@ -108,6 +108,8 @@ public class Main extends Application {
 				// TODO Auto-generated catch block
 				e1.printStackTrace();
 			}
+			game.selectedPlayer = 1;
+			game.changePlayer(game.selectedPlayer);
 			for(int i=0; i<listaPBlu.size(); i++) {//automovimento
 				game.autoMove(listaPBlu, game.bluePlayer);
 				try {
