@@ -1,6 +1,6 @@
 package player;
 
-public class BluePlayer {
+public class BluePlayer implements Player{
 	int x;
 	int y;
 	

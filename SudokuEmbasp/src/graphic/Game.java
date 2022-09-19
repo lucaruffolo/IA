@@ -1,11 +1,15 @@
 package graphic;
 
+import java.util.ArrayList;
+
+import Percorsi.Punto;
 import finishZone.BlueFinish;
 import finishZone.PurpleFinish;
 import finishZone.YellowFinish;
 import main.Main;
 import maps.Maps;
 import player.BluePlayer;
+import player.Player;
 import player.PurplePlayer;
 import player.YellowPlayer;
 import playerBlocks.BlueBlock;
@@ -39,44 +43,12 @@ public class Game {
 
 
 	public Game() { // generazione map
-
 		blocks = Maps.loadRoom(0);
-		
-//		for (int i = 0; i < blocks.length; i++) {
-//			for (int j = 0; j < blocks[i].length; j++) {
-//				blocks[i][j] = new Block(Block.EMPTY);
-//			}
-//		}
-		/*
-		 * blocks[bluePlayer.getX()][bluePlayer.getY()].setType(Block.BLUE_PLAYER);
-		 * blocks[yellowPlayer.getX()][yellowPlayer.getY()].setType(Block.YELLOW_PLAYER)
-		 * ;
-		 * blocks[purplePlayer.getX()][purplePlayer.getY()].setType(Block.PURPLE_PLAYER)
-		 * ;
-		 * 
-		 * Random r = new Random(); int count = 0; while (count < 4) { int randX =
-		 * r.nextInt(Settings.cellSize); int randY = r.nextInt(Settings.cellSize); if
-		 * (blocks[randX][randY].getType() == Block.EMPTY) { count++;
-		 * blocks[randX][randY].setType(Block.POINT); } }
-		 * 
-		 * Random r = new Random(); int count = 0; count = 0; while (count < 4) { int
-		 * randX = r.nextInt(Settings.cellSize - 1) + 1; for (int j = 0; j <
-		 * blocks[randX].length / 2; j++) { if (blocks[randX][j].getType() ==
-		 * Block.EMPTY) { blocks[randX][j].setType(Block.WALL); } } count++; }
-		 */
-
-//		for (int i = 0; i < blocks.length; i++) {
-//			for (int j = 0; j < blocks[i].length; j++) {
-//				if (i == 0 || j == 0 || i == blocks.length - 1 || j == blocks[i].length - 1)
-//					blocks[i][j].setType(Block.WALL);
-//			}
-//		}
-
 	}
 
 	public void move(int direction) {
 		changePlayer(selectedPlayer);
-		clearpaths();
+		//clearpaths();
 
 		if (direction < MOVE_RIGHT && direction > MOVE_DOWN)
 			return;
@@ -199,9 +171,6 @@ public class Game {
 		else
 			yellowBlock.setOnFinish(false);
 
-//		System.out.println("blue"+blueBlock.getOnFinish());
-//		System.out.println("purple"+purpleBlock.getOnFinish());
-//		System.out.println("yellow"+yellowBlock.getOnFinish());
 		if (blueBlock.getOnFinish() == true && yellowBlock.getOnFinish() == true && purpleBlock.getOnFinish() == true) {
 			System.out.println("vittoria");
 			if (Maps.index == 3)
@@ -279,85 +248,86 @@ public class Game {
 	}
 	
 	public void clearpaths() {
-		for(PBlu pb:Main.listaPBlu) {
-			if(pb.getX() == bluePlayer.getX() && pb.getY() == bluePlayer.getY()) {
-				pb.setType(0);
+		for(int i=0; i<Main.listaPBlu.size(); i++) {
+			if(Main.listaPBlu.get(i).getX() == bluePlayer.getX() && Main.listaPBlu.get(i).getY() == bluePlayer.getY()) {
+				Main.listaPBlu.get(i).setType(0);
+				Main.listaPBlu.get(i).setPassato(true);
 			}
 		}
-		for(PGiallo pb:Main.listaPGiallo) {
-			if(pb.getX() == yellowPlayer.getX() && pb.getY() == yellowPlayer.getY()) {
-				pb.setType(0);
+		for(int i=0; i<Main.listaPercorsoBlu.size(); i++) {
+			if(Main.listaPercorsoBlu.get(i).getX() == bluePlayer.getX() && Main.listaPercorsoBlu.get(i).getY() == bluePlayer.getY()) {
+				Main.listaPercorsoBlu.get(i).setType(0);
+				Main.listaPercorsoBlu.get(i).setPassato(true);
 			}
 		}
-		for(PViola pb:Main.listaPViola) {
-			if(pb.getX() == purplePlayer.getX() && pb.getY() == purplePlayer.getY()) {
-				pb.setType(0);
+		
+		for(int i=0; i<Main.listaPViola.size(); i++) {
+			if(Main.listaPViola.get(i).getX() == purplePlayer.getX() && Main.listaPViola.get(i).getY() == purplePlayer.getY()) {
+				Main.listaPViola.get(i).setType(0);
+				Main.listaPViola.get(i).setPassato(true);
 			}
 		}
-		for(PercorsoBlu pb:Main.listaPercorsoBlu) {
-			if(pb.getX() == blueBlock.getX() && pb.getY() == blueBlock.getY()) {
-				pb.setType(0);
+		
+		for(int i=0; i<Main.listaPercorsoViola.size(); i++) {
+			if(Main.listaPercorsoViola.get(i).getX() == purplePlayer.getX() && Main.listaPercorsoViola.get(i).getY() == purplePlayer.getY()) {
+				Main.listaPercorsoViola.get(i).setType(0);
+				Main.listaPercorsoViola.get(i).setPassato(true);
 			}
 		}
-		for(PercorsoGiallo pb:Main.listaPercorsoGiallo) {
-			if(pb.getX() == yellowBlock.getX() && pb.getY() == yellowBlock.getY()) {
-				pb.setType(0);
+		for(int i=0; i<Main.listaPGiallo.size(); i++) {
+			if(Main.listaPGiallo.get(i).getX() == yellowPlayer.getX() && Main.listaPGiallo.get(i).getY() == yellowPlayer.getY()) {
+				Main.listaPGiallo.get(i).setType(0);
+				Main.listaPGiallo.get(i).setPassato(true);
 			}
 		}
-		for(PercorsoViola pb:Main.listaPercorsoViola) {
-			if(pb.getX() == purpleBlock.getX() && pb.getY() == purpleBlock.getY()) {
-				pb.setType(0);
+		
+		for(int i=0; i<Main.listaPercorsoGiallo.size(); i++) {
+			if(Main.listaPercorsoGiallo.get(i).getX() == yellowPlayer.getX() && Main.listaPercorsoGiallo.get(i).getY() == yellowPlayer.getY()) {
+				Main.listaPercorsoGiallo.get(i).setType(0);
+				Main.listaPercorsoGiallo.get(i).setPassato(true);
 			}
 		}
 		
 	}
 	
-	public void autoMove() {
+	public void autoMove(ArrayList<Punto> listaPunto, Player player) {
 		
-		int xb = bluePlayer.getX();
-		int yb = bluePlayer.getY();
+		//System.out.println(player);
+		int xb = player.getX();
+		int yb = player.getY();
 		int distanzaBlu = 100;
 		int indiceBlu = 0;
-		for(PBlu i : Main.listaPBlu) {
-			int ix = i.getX();
-			int iy = i.getY();
-			int d = (ix - xb) + (iy - yb);
-			if(d < distanzaBlu) {
-				distanzaBlu = d;
-				indiceBlu = Main.listaPBlu.indexOf(i);
+		for(Punto i : listaPunto) {
+			if (i.getPassato()==false) {
+				int ix = i.getX();
+				int iy = i.getY();
+				int d = (ix - xb) + (iy - yb);
+				if (d < distanzaBlu) {
+					distanzaBlu = d;
+					indiceBlu = listaPunto.indexOf(i);
+				} 
 			}
 		}
-		System.out.println(Main.listaPBlu.get(indiceBlu).getX()+" "+Main.listaPBlu.get(indiceBlu).getY());
-		if((xb-1)== Main.listaPBlu.get(indiceBlu).getX() && yb == Main.listaPBlu.get(indiceBlu).getY()) {
+		//System.out.println(listaPunto.get(indiceBlu).getX()+" "+listaPunto.get(indiceBlu).getY());
+		if((xb-1)== listaPunto.get(indiceBlu).getX() && yb == listaPunto.get(indiceBlu).getY()) {
 			System.out.println("sx");
 			move(MOVE_LEFT);
 		}
-		if((xb+1)== Main.listaPBlu.get(indiceBlu).getX() && yb == Main.listaPBlu.get(indiceBlu).getY()) {
+		if((xb+1)== listaPunto.get(indiceBlu).getX() && yb == listaPunto.get(indiceBlu).getY()) {
 			System.out.println("dx");
 			move(MOVE_RIGHT);
 		}
-		if(xb == Main.listaPBlu.get(indiceBlu).getX() && (yb-1) == Main.listaPBlu.get(indiceBlu).getY()) {
+		if(xb == listaPunto.get(indiceBlu).getX() && (yb-1) == listaPunto.get(indiceBlu).getY()) {
 			System.out.println("up");
 			move(MOVE_UP);
 		}
-		if(xb == Main.listaPBlu.get(indiceBlu).getX() && (yb+1) == Main.listaPBlu.get(indiceBlu).getY()) {
+		if(xb == listaPunto.get(indiceBlu).getX() && (yb+1) == listaPunto.get(indiceBlu).getY()) {
 			System.out.println("dw");
 			move(MOVE_DOWN);
 		}
 		
-
-		// thread movimento e disegno
-		new Thread(()->{  
-			
-			try {
-				Thread.sleep(2000);
-			} catch (InterruptedException e) {
-				e.printStackTrace();
-			}
-			autoMove();
-			Graphics.draw();
-	    }).start();
-		
+		clearpaths();
+		Graphics.draw();
 	}
 	
 }

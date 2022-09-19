@@ -1,10 +1,10 @@
-package graphic;
+package Percorsi;
 
 import it.unical.mat.embasp.languages.Id;
 import it.unical.mat.embasp.languages.Param;
 
-@Id("percorsoblu")
-public class PercorsoBlu {
+@Id("pviola")
+public class PViola implements Punto{
 
 	@Param(0)
 	private int x;
@@ -12,14 +12,15 @@ public class PercorsoBlu {
 	private int y;
 	@Param(2)
 	private int type;
+	private Boolean passato = false;
 
-	public PercorsoBlu(int x, int y, int type) {
+	public PViola(int x, int y, int type) {
 		this.type = type;
 		this.x = x;
 		this.y = y;
 	}
 
-	public PercorsoBlu() {
+	public PViola() {
 
 	}
 
@@ -45,6 +46,13 @@ public class PercorsoBlu {
 
 	public int getType() {
 		return type;
+	}
+	public Boolean getPassato() {
+		return passato;
+	}
+
+	public void setPassato(Boolean passato) {
+		this.passato = passato;
 	}
 
 }

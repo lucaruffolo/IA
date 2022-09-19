@@ -2,15 +2,17 @@ package main;
 
 import java.util.ArrayList;
 
+import Percorsi.PBlu;
+import Percorsi.PGiallo;
+import Percorsi.PViola;
+import Percorsi.PercorsoBlu;
+import Percorsi.PercorsoGiallo;
+import Percorsi.PercorsoViola;
+import Percorsi.Punto;
+import finishZone.BlueFinish;
 import graphic.Block;
 import graphic.Game;
 import graphic.Graphics;
-import graphic.PBlu;
-import graphic.PGiallo;
-import graphic.PViola;
-import graphic.PercorsoBlu;
-import graphic.PercorsoGiallo;
-import graphic.PercorsoViola;
 import graphic.Settings;
 import it.unical.mat.embasp.base.Handler;
 import it.unical.mat.embasp.base.InputProgram;
@@ -39,12 +41,12 @@ public class Main extends Application {
 	private static String encodingResource = "encodings/ccmmyy";
 	private static Handler handler;
 	public static Boolean onMoveRefreshIA = true;
-	public static ArrayList<PercorsoBlu> listaPercorsoBlu;
-	public static ArrayList<PercorsoGiallo> listaPercorsoGiallo;
-	public static ArrayList<PercorsoViola> listaPercorsoViola;
-	public static ArrayList<PBlu> listaPBlu;
-	public static ArrayList<PViola> listaPViola;
-	public static ArrayList<PGiallo> listaPGiallo;
+	public static ArrayList<Punto> listaPercorsoBlu;
+	public static ArrayList<Punto> listaPercorsoGiallo;
+	public static ArrayList<Punto> listaPercorsoViola;
+	public static ArrayList<Punto> listaPBlu;
+	public static ArrayList<Punto> listaPViola;
+	public static ArrayList<Punto> listaPGiallo;
 
 	@Override
 	public void start(Stage primaryStage) throws Exception {
@@ -61,13 +63,13 @@ public class Main extends Application {
 	}
 
 	public static void main(String[] args) {
-		listaPercorsoBlu = new ArrayList<PercorsoBlu>();
-		listaPercorsoGiallo = new ArrayList<PercorsoGiallo>();
-		listaPercorsoViola = new ArrayList<PercorsoViola>();
+		listaPercorsoBlu = new ArrayList<Punto>();
+		listaPercorsoGiallo = new ArrayList<Punto>();
+		listaPercorsoViola = new ArrayList<Punto>();
 		
-		listaPBlu = new ArrayList<PBlu>();
-		listaPGiallo = new ArrayList<PGiallo>();
-		listaPViola = new ArrayList<PViola>();
+		listaPBlu = new ArrayList<Punto>();
+		listaPGiallo = new ArrayList<Punto>();
+		listaPViola = new ArrayList<Punto>();
 		launch(args);
 	}
 
@@ -80,7 +82,90 @@ public class Main extends Application {
 		//pg.draw();
 		//startIA();
 		pg.draw();
-		game.autoMove();
+		
+		
+		for(int i=0; i<listaPercorsoBlu.size(); i++) {//rimuovo l'ultimo movimento
+			if(listaPercorsoBlu.get(i).getX() == game.blueFinish.getX() && listaPercorsoBlu.get(i).getY() == game.blueFinish.getY()) {
+				listaPercorsoBlu.remove(i);
+			}
+		}
+		for(int i=0; i<listaPercorsoViola.size(); i++) {//rimuovo l'ultimo movimento
+			if(listaPercorsoViola.get(i).getX() == game.purpleFinish.getX() && listaPercorsoViola.get(i).getY() == game.purpleFinish.getY()) {
+				listaPercorsoViola.remove(i);
+			}
+		}
+		for(int i=0; i<listaPercorsoGiallo.size(); i++) {//rimuovo l'ultimo movimento
+			if(listaPercorsoGiallo.get(i).getX() == game.yellowFinish.getX() && listaPercorsoGiallo.get(i).getY() == game.yellowFinish.getY()) {
+				listaPercorsoGiallo.remove(i);
+			}
+		}
+
+		// thread movimento e disegno
+		new Thread(()->{  
+			try {//carico grafica
+				Thread.sleep(3500);
+			} catch (InterruptedException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
+			for(int i=0; i<listaPBlu.size(); i++) {//automovimento
+				game.autoMove(listaPBlu, game.bluePlayer);
+				try {
+					Thread.sleep(2000);
+				} catch (InterruptedException e) {
+					e.printStackTrace();
+				}
+			}
+			for(int i=0; i<listaPercorsoBlu.size(); i++) {//automovimento
+				game.autoMove(listaPercorsoBlu, game.bluePlayer);
+				try {
+					Thread.sleep(2000);
+				} catch (InterruptedException e) {
+					e.printStackTrace();
+				}
+			}
+			game.selectedPlayer = 2;
+			game.changePlayer(game.selectedPlayer);
+			
+			for(int i=0; i<listaPViola.size(); i++) {//automovimento
+				game.autoMove(listaPViola, game.purplePlayer);
+				try {
+					Thread.sleep(2000);
+				} catch (InterruptedException e) {
+					e.printStackTrace();
+				}
+			}
+			for(int i=0; i<listaPercorsoViola.size(); i++) {//automovimento
+				game.autoMove(listaPercorsoViola, game.purplePlayer);
+				try {
+					Thread.sleep(2000);
+				} catch (InterruptedException e) {
+					e.printStackTrace();
+				}
+			}
+			
+			game.selectedPlayer = 3;
+			game.changePlayer(game.selectedPlayer);
+			
+			for(int i=0; i<listaPGiallo.size(); i++) {//automovimento
+				game.autoMove(listaPGiallo, game.yellowPlayer);
+				try {
+					Thread.sleep(2000);
+				} catch (InterruptedException e) {
+					e.printStackTrace();
+				}
+			}
+			for(int i=0; i<listaPercorsoGiallo.size(); i++) {//automovimento
+				game.autoMove(listaPercorsoGiallo, game.yellowPlayer);
+				try {
+					Thread.sleep(2000);
+				} catch (InterruptedException e) {
+					e.printStackTrace();
+				}
+			}
+			
+			Graphics.draw();
+	    }).start();
 	}
 
 	public static void startIA() {
