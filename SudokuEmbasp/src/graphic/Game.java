@@ -43,7 +43,7 @@ public class Game {
 
 
 	public Game() { // generazione map
-		blocks = Maps.loadRoom(3);
+		blocks = Maps.loadRoom(0);
 	}
 
 	public void move(int direction) {
@@ -293,36 +293,42 @@ public class Game {
 	
 	public void autoMove(ArrayList<Punto> listaPunto, Player player) {
 		
-		//System.out.println(player);
 		int xb = player.getX();
 		int yb = player.getY();
-		int distanzaBlu = 100;
-		int indiceBlu = 0;
+		//int distanzaBlu = 100;
+		int indice = 0;
 		for(Punto i : listaPunto) {
 			if (i.getPassato()==false) {
 				int ix = i.getX();
 				int iy = i.getY();
-				int d = (ix - xb) + (iy - yb);
+				if(ix-xb == 0 && Math.abs(iy-yb) == 1) {
+					indice = listaPunto.indexOf(i);
+				}
+				if(Math.abs(ix-xb) == 1 && iy-yb == 0) {
+					indice = listaPunto.indexOf(i);
+				}
+				/*int d = (ix - xb) + (iy - yb);
+				//System.out.println(d);
+				//System.out.println(Math.abs(d));
 				if (d < distanzaBlu) {
 					distanzaBlu = d;
 					indiceBlu = listaPunto.indexOf(i);
-				} 
+				}*/ 
 			}
 		}
-		//System.out.println(listaPunto.get(indiceBlu).getX()+" "+listaPunto.get(indiceBlu).getY());
-		if((xb-1)== listaPunto.get(indiceBlu).getX() && yb == listaPunto.get(indiceBlu).getY()) {
+		if((xb-1)== listaPunto.get(indice).getX() && yb == listaPunto.get(indice).getY()) {
 			System.out.println("sx");
 			move(MOVE_LEFT);
 		}
-		if((xb+1)== listaPunto.get(indiceBlu).getX() && yb == listaPunto.get(indiceBlu).getY()) {
+		if((xb+1)== listaPunto.get(indice).getX() && yb == listaPunto.get(indice).getY()) {
 			System.out.println("dx");
 			move(MOVE_RIGHT);
 		}
-		if(xb == listaPunto.get(indiceBlu).getX() && (yb-1) == listaPunto.get(indiceBlu).getY()) {
+		if(xb == listaPunto.get(indice).getX() && (yb-1) == listaPunto.get(indice).getY()) {
 			System.out.println("up");
 			move(MOVE_UP);
 		}
-		if(xb == listaPunto.get(indiceBlu).getX() && (yb+1) == listaPunto.get(indiceBlu).getY()) {
+		if(xb == listaPunto.get(indice).getX() && (yb+1) == listaPunto.get(indice).getY()) {
 			System.out.println("dw");
 			move(MOVE_DOWN);
 		}
