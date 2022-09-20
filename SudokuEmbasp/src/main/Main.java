@@ -47,6 +47,7 @@ public class Main extends Application {
 	public static ArrayList<Punto> listaPBlu;
 	public static ArrayList<Punto> listaPViola;
 	public static ArrayList<Punto> listaPGiallo;
+	public static Game game;
 
 	@Override
 	public void start(Stage primaryStage) throws Exception {
@@ -74,7 +75,7 @@ public class Main extends Application {
 	}
 
 	public static void startGame() {
-		Game game = new Game();
+		game = new Game();
 		Graphics pg = new Graphics(game);
 		Scene scene = new Scene(pg, Settings.size, Settings.size);
 		window.centerOnScreen();
@@ -82,8 +83,9 @@ public class Main extends Application {
 		//pg.draw();
 		//startIA();
 		pg.draw();
-		
-		
+	}
+	
+	public static void loadAutoMove() {
 		for(int i=0; i<listaPercorsoBlu.size(); i++) {//rimuovo l'ultimo movimento
 			if(listaPercorsoBlu.get(i).getX() == game.blueFinish.getX() && listaPercorsoBlu.get(i).getY() == game.blueFinish.getY()) {
 				listaPercorsoBlu.remove(i);
@@ -102,18 +104,19 @@ public class Main extends Application {
 
 		// thread movimento e disegno
 		new Thread(()->{  
+			game.selectedPlayer = 1;
+			game.changePlayer(game.selectedPlayer);
 			try {//carico grafica
-				Thread.sleep(3500);
+				Thread.sleep(3000);
 			} catch (InterruptedException e1) {
 				// TODO Auto-generated catch block
 				e1.printStackTrace();
 			}
-			game.selectedPlayer = 1;
-			game.changePlayer(game.selectedPlayer);
+			
 			for(int i=0; i<listaPBlu.size(); i++) {//automovimento
 				game.autoMove(listaPBlu, game.bluePlayer);
 				try {
-					Thread.sleep(2000);
+					Thread.sleep(1000);
 				} catch (InterruptedException e) {
 					e.printStackTrace();
 				}
@@ -121,7 +124,7 @@ public class Main extends Application {
 			for(int i=0; i<listaPercorsoBlu.size(); i++) {//automovimento
 				game.autoMove(listaPercorsoBlu, game.bluePlayer);
 				try {
-					Thread.sleep(2000);
+					Thread.sleep(1000);
 				} catch (InterruptedException e) {
 					e.printStackTrace();
 				}
@@ -132,7 +135,7 @@ public class Main extends Application {
 			for(int i=0; i<listaPViola.size(); i++) {//automovimento
 				game.autoMove(listaPViola, game.purplePlayer);
 				try {
-					Thread.sleep(2000);
+					Thread.sleep(1000);
 				} catch (InterruptedException e) {
 					e.printStackTrace();
 				}
@@ -140,7 +143,7 @@ public class Main extends Application {
 			for(int i=0; i<listaPercorsoViola.size(); i++) {//automovimento
 				game.autoMove(listaPercorsoViola, game.purplePlayer);
 				try {
-					Thread.sleep(2000);
+					Thread.sleep(1000);
 				} catch (InterruptedException e) {
 					e.printStackTrace();
 				}
@@ -152,7 +155,7 @@ public class Main extends Application {
 			for(int i=0; i<listaPGiallo.size(); i++) {//automovimento
 				game.autoMove(listaPGiallo, game.yellowPlayer);
 				try {
-					Thread.sleep(2000);
+					Thread.sleep(1000);
 				} catch (InterruptedException e) {
 					e.printStackTrace();
 				}
@@ -160,7 +163,7 @@ public class Main extends Application {
 			for(int i=0; i<listaPercorsoGiallo.size(); i++) {//automovimento
 				game.autoMove(listaPercorsoGiallo, game.yellowPlayer);
 				try {
-					Thread.sleep(2000);
+					Thread.sleep(1000);
 				} catch (InterruptedException e) {
 					e.printStackTrace();
 				}

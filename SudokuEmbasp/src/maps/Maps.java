@@ -85,6 +85,7 @@ public class Maps {
 			}
 		}
 		Main.startIA();
+		Main.loadAutoMove();
 		return matrixGame;
 	}
 }
