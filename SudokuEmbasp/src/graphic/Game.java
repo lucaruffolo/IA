@@ -43,7 +43,7 @@ public class Game {
 
 
 	public Game() { // generazione map
-		blocks = Maps.loadRoom(3);
+		blocks = Maps.loadRoom(0);
 	}
 
 	public void move(int direction) {

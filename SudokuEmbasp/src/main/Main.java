@@ -219,20 +219,13 @@ public class Main extends Application {
 		AnswerSets answersets = (AnswerSets) o;
 		//answersets.getOptimalAnswerSets();/
 
-		// System.out.println("\n" + answersets.getAnswersets());
-		int index = 1;
+		System.out.println("\n" + answersets.getAnswersets());
 
 		for (AnswerSet a : answersets.getOptimalAnswerSets()) {
 			// System.out.println(a);
 			// System.out.println(answersets.getAnswersets().size());
 			// System.out.println(a.getAnswerSet());
 
-			index++;
-	
-			
-			//if (index == answersets.getOptimalAnswerSets().size()) {
-				// System.out.println("\n[Ottimo] (UltimoAS):");
-				// System.out.println(a.getAnswerSet());
 			try {
 				for (Object obj : a.getAtoms()) {
 					// System.out.println(obj);

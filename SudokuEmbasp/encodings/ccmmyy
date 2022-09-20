@@ -1,5 +1,5 @@
 
-pallinoblu(X,Y) :- cell(X,Y,N), N=1.
+pallinoblu(X,Y) :- cell(X,Y,N), N=1.  
 pallinoviola(X,Y) :- cell(X,Y,N), N=2.
 pallinogiallo(X,Y) :- cell(X,Y,N), N=3.
 
@@ -13,16 +13,20 @@ finegiallo(X,Y) :- cell(X,Y,N), N=11.
 
 muro(X,Y) :- cell(X,Y,N), N=5.
 
-arco(X1,Y1,X2,Y2) :- cell(X1,Y1,N1), N1<>5, N1<>4, cell(X2,Y2,N2), N2<>5, N2<>4, X1=X2, Y1-1=Y2.
+
+#collegamento tra 2 celle con +1 o -1 su asse x o y
+arco(X1,Y1,X2,Y2) :- cell(X1,Y1,N1), N1<>5, N1<>4, cell(X2,Y2,N2), N2<>5, N2<>4, X1=X2, Y1-1=Y2. 
 arco(X1,Y1,X2,Y2) :- cell(X1,Y1,N1), N1<>5, N1<>4, cell(X2,Y2,N2), N2<>5, N2<>4, X1=X2, Y1+1=Y2.
 arco(X1,Y1,X2,Y2) :- cell(X1,Y1,N1), N1<>5, N1<>4, cell(X2,Y2,N2), N2<>5, N2<>4, X1-1=X2, Y1=Y2.
 arco(X1,Y1,X2,Y2) :- cell(X1,Y1,N1), N1<>5, N1<>4, cell(X2,Y2,N2), N2<>5, N2<>4, X1+1=X2, Y1=Y2.
 
-percorsoblu(X2,Y2,N) | notpercorsoblu(X2,Y2,N) :- bloccoblu(X1,Y1), arco(X1,Y1,X2,Y2), N=1.
-percorsoblu(X2,Y2,N) | notpercorsoblu(X2,Y2,N) :- percorsoblu(X1,Y1,N), arco(X1,Y1,X2,Y2), not fineblu(X1,Y1), N=1.
+
+#guess and check
+percorsoblu(X2,Y2,N) | notpercorsoblu(X2,Y2,N) :- bloccoblu(X1,Y1), arco(X1,Y1,X2,Y2), N=1. #ci salviamo una cella vicino al blocco
+percorsoblu(X2,Y2,N) | notpercorsoblu(X2,Y2,N) :- percorsoblu(X1,Y1,N), arco(X1,Y1,X2,Y2), not fineblu(X1,Y1), N=1. #continuiamo a prendere le celle vicino al percorso e ci assicuriamo che non sia la fine
 visitatoblu(X,Y) :- percorsoblu(X,Y,_).
 :- fineblu(X,Y), not visitatoblu(X,Y).
-:~ #count{X,Y: percorsoblu(X,Y,_)}=K. [K@1]
+:~ #count{X,Y: percorsoblu(X,Y,_)}=K. [K@1] #paghiamo per il percorso.
 
 percorsoviola(X2,Y2,N) | notpercorsoviola(X2,Y2,N) :- bloccoviola(X1,Y1), arco(X1,Y1,X2,Y2), N=2.
 percorsoviola(X2,Y2,N) | notpercorsoviola(X2,Y2,N) :- percorsoviola(X1,Y1,N), arco(X1,Y1,X2,Y2), not fineviola(X1,Y1), N=2.
