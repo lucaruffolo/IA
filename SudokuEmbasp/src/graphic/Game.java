@@ -43,7 +43,7 @@ public class Game {
 
 
 	public Game() { // generazione map
-		blocks = Maps.loadRoom(0);
+		blocks = Maps.loadRoom(3);
 	}
 
 	public void move(int direction) {
@@ -175,9 +175,10 @@ public class Game {
 			System.out.println("vittoria");
 			if (Maps.index == 3)
 				System.out.println("Fine gioco");
-			else
+			else {
 				Graphics.draw();
 				Maps.loadRoom(Maps.index + 1);
+			}	
 		}
 		
 		
