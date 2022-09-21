@@ -51,8 +51,7 @@ public class Main extends Application {
 
 	@Override
 	public void start(Stage primaryStage) throws Exception {
-	
-		
+
 		window = primaryStage;
 		FXMLLoader loader = new FXMLLoader(MenuIniziale.class.getResource("MenuIniziale.fxml"));
 		AnchorPane root = (AnchorPane) loader.load();
@@ -67,7 +66,7 @@ public class Main extends Application {
 		listaPercorsoBlu = new ArrayList<Punto>();
 		listaPercorsoGiallo = new ArrayList<Punto>();
 		listaPercorsoViola = new ArrayList<Punto>();
-		
+
 		listaPBlu = new ArrayList<Punto>();
 		listaPGiallo = new ArrayList<Punto>();
 		listaPViola = new ArrayList<Punto>();
@@ -80,40 +79,43 @@ public class Main extends Application {
 		Scene scene = new Scene(pg, Settings.size, Settings.size);
 		window.centerOnScreen();
 		window.setScene(scene);
-		//pg.draw();
-		//startIA();
+		// pg.draw();
+		// startIA();
 		pg.draw();
 	}
-	
+
 	public static void loadAutoMove() {
-		for(int i=0; i<listaPercorsoBlu.size(); i++) {//rimuovo l'ultimo movimento
-			if(listaPercorsoBlu.get(i).getX() == game.blueFinish.getX() && listaPercorsoBlu.get(i).getY() == game.blueFinish.getY()) {
+		for (int i = 0; i < listaPercorsoBlu.size(); i++) {// rimuovo l'ultimo movimento
+			if (listaPercorsoBlu.get(i).getX() == game.blueFinish.getX()
+					&& listaPercorsoBlu.get(i).getY() == game.blueFinish.getY()) {
 				listaPercorsoBlu.remove(i);
 			}
 		}
-		for(int i=0; i<listaPercorsoViola.size(); i++) {//rimuovo l'ultimo movimento
-			if(listaPercorsoViola.get(i).getX() == game.purpleFinish.getX() && listaPercorsoViola.get(i).getY() == game.purpleFinish.getY()) {
+		for (int i = 0; i < listaPercorsoViola.size(); i++) {// rimuovo l'ultimo movimento
+			if (listaPercorsoViola.get(i).getX() == game.purpleFinish.getX()
+					&& listaPercorsoViola.get(i).getY() == game.purpleFinish.getY()) {
 				listaPercorsoViola.remove(i);
 			}
 		}
-		for(int i=0; i<listaPercorsoGiallo.size(); i++) {//rimuovo l'ultimo movimento
-			if(listaPercorsoGiallo.get(i).getX() == game.yellowFinish.getX() && listaPercorsoGiallo.get(i).getY() == game.yellowFinish.getY()) {
+		for (int i = 0; i < listaPercorsoGiallo.size(); i++) {// rimuovo l'ultimo movimento
+			if (listaPercorsoGiallo.get(i).getX() == game.yellowFinish.getX()
+					&& listaPercorsoGiallo.get(i).getY() == game.yellowFinish.getY()) {
 				listaPercorsoGiallo.remove(i);
 			}
 		}
 
 		// thread movimento e disegno
-		new Thread(()->{  
+		new Thread(() -> {
 			game.selectedPlayer = 1;
 			game.changePlayer(game.selectedPlayer);
-			try {//carico grafica
+			try {// carico grafica
 				Thread.sleep(3000);
 			} catch (InterruptedException e1) {
 				// TODO Auto-generated catch block
 				e1.printStackTrace();
 			}
-			
-			for(int i=0; i<listaPBlu.size(); i++) {//automovimento
+
+			for (int i = 0; i < listaPBlu.size(); i++) {// automovimento
 				game.autoMove(listaPBlu, game.bluePlayer);
 				try {
 					Thread.sleep(1000);
@@ -121,7 +123,7 @@ public class Main extends Application {
 					e.printStackTrace();
 				}
 			}
-			for(int i=0; i<listaPercorsoBlu.size(); i++) {//automovimento
+			for (int i = 0; i < listaPercorsoBlu.size(); i++) {// automovimento
 				game.autoMove(listaPercorsoBlu, game.bluePlayer);
 				try {
 					Thread.sleep(1000);
@@ -131,8 +133,8 @@ public class Main extends Application {
 			}
 			game.selectedPlayer = 2;
 			game.changePlayer(game.selectedPlayer);
-			
-			for(int i=0; i<listaPViola.size(); i++) {//automovimento
+
+			for (int i = 0; i < listaPViola.size(); i++) {// automovimento
 				game.autoMove(listaPViola, game.purplePlayer);
 				try {
 					Thread.sleep(1000);
@@ -140,7 +142,7 @@ public class Main extends Application {
 					e.printStackTrace();
 				}
 			}
-			for(int i=0; i<listaPercorsoViola.size(); i++) {//automovimento
+			for (int i = 0; i < listaPercorsoViola.size(); i++) {// automovimento
 				game.autoMove(listaPercorsoViola, game.purplePlayer);
 				try {
 					Thread.sleep(1000);
@@ -148,11 +150,11 @@ public class Main extends Application {
 					e.printStackTrace();
 				}
 			}
-			
+
 			game.selectedPlayer = 3;
 			game.changePlayer(game.selectedPlayer);
-			
-			for(int i=0; i<listaPGiallo.size(); i++) {//automovimento
+
+			for (int i = 0; i < listaPGiallo.size(); i++) {// automovimento
 				game.autoMove(listaPGiallo, game.yellowPlayer);
 				try {
 					Thread.sleep(1000);
@@ -160,7 +162,7 @@ public class Main extends Application {
 					e.printStackTrace();
 				}
 			}
-			for(int i=0; i<listaPercorsoGiallo.size(); i++) {//automovimento
+			for (int i = 0; i < listaPercorsoGiallo.size(); i++) {// automovimento
 				game.autoMove(listaPercorsoGiallo, game.yellowPlayer);
 				try {
 					Thread.sleep(1000);
@@ -168,21 +170,21 @@ public class Main extends Application {
 					e.printStackTrace();
 				}
 			}
-			
+
 			Graphics.draw();
-	    }).start();
+		}).start();
 	}
 
 	public static void startIA() {
-		
+
 		listaPercorsoBlu.clear();
 		listaPercorsoGiallo.clear();
 		listaPercorsoViola.clear();
-		
+
 		listaPBlu.clear();
 		listaPViola.clear();
 		listaPGiallo.clear();
-		
+
 		handler = new DesktopHandler(new DLV2DesktopService("lib/dlv2.exe"));
 		try {
 			ASPMapper.getInstance().registerClass(Block.class);
@@ -201,13 +203,13 @@ public class Main extends Application {
 				}
 			}
 		}
-		try {
+		try { // definiamo i FATTI iniziali
 			facts.addObjectInput(new PercorsoBlu(0, 0, 0));
 			facts.addObjectInput(new PercorsoGiallo(0, 0, 0));
 			facts.addObjectInput(new PercorsoViola(0, 0, 0));
-			facts.addObjectInput(new PBlu(0,0,0));
-			facts.addObjectInput(new PViola(0,0,0));
-			facts.addObjectInput(new PGiallo(0,0,0));
+			facts.addObjectInput(new PBlu(0, 0, 0));
+			facts.addObjectInput(new PViola(0, 0, 0));
+			facts.addObjectInput(new PGiallo(0, 0, 0));
 		} catch (Exception e1) {
 			e1.printStackTrace();
 		}
@@ -217,7 +219,7 @@ public class Main extends Application {
 		handler.addProgram(encoding);
 		Output o = handler.startSync();
 		AnswerSets answersets = (AnswerSets) o;
-		//answersets.getOptimalAnswerSets();/
+		// answersets.getOptimalAnswerSets();/
 
 		System.out.println("\n" + answersets.getAnswersets());
 
@@ -273,14 +275,14 @@ public class Main extends Application {
 							listaPGiallo.add(cell);
 						}
 					}
-					
+
 				}
 			} catch (Exception e) {
 
 				e.printStackTrace();
 			}
 		}
-		
+
 	}
 
 }
