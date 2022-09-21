@@ -1,0 +1,59 @@
+
+pallinoblu(X,Y) :- cell(X,Y,N), N=1.  
+pallinoviola(X,Y) :- cell(X,Y,N), N=2.
+pallinogiallo(X,Y) :- cell(X,Y,N), N=3.
+
+bloccoblu(X,Y) :- cell(X,Y,N), N=6.
+bloccoviola(X,Y) :- cell(X,Y,N), N=7.
+bloccogiallo(X,Y) :- cell(X,Y,N), N=8.
+
+fineblu(X,Y) :- cell(X,Y,N), N=9.
+fineviola(X,Y) :- cell(X,Y,N), N=10.
+finegiallo(X,Y) :- cell(X,Y,N), N=11.
+
+muro(X,Y) :- cell(X,Y,N), N=5.
+
+
+#collegamento tra 2 celle con +1 o -1 su asse x o y
+arco(X1,Y1,X2,Y2) :- cell(X1,Y1,N1), N1<>5, N1<>4, cell(X2,Y2,N2), N2<>5, N2<>4, X1=X2, Y1-1=Y2. 
+arco(X1,Y1,X2,Y2) :- cell(X1,Y1,N1), N1<>5, N1<>4, cell(X2,Y2,N2), N2<>5, N2<>4, X1=X2, Y1+1=Y2.
+arco(X1,Y1,X2,Y2) :- cell(X1,Y1,N1), N1<>5, N1<>4, cell(X2,Y2,N2), N2<>5, N2<>4, X1-1=X2, Y1=Y2.
+arco(X1,Y1,X2,Y2) :- cell(X1,Y1,N1), N1<>5, N1<>4, cell(X2,Y2,N2), N2<>5, N2<>4, X1+1=X2, Y1=Y2.
+
+
+#guess and check
+percorsoblu(X2,Y2,N) | notpercorsoblu(X2,Y2,N) :- bloccoblu(X1,Y1), arco(X1,Y1,X2,Y2), N=1. #ci salviamo una cella vicino al blocco
+percorsoblu(X2,Y2,N) | notpercorsoblu(X2,Y2,N) :- percorsoblu(X1,Y1,N), arco(X1,Y1,X2,Y2), not fineblu(X1,Y1), N=1. #continuiamo a prendere le celle vicino al percorso e ci assicuriamo che non sia la fine
+visitatoblu(X,Y) :- percorsoblu(X,Y,_).
+:- fineblu(X,Y), not visitatoblu(X,Y).
+:~ #count{X,Y: percorsoblu(X,Y,_)}=K. [K@1] #paghiamo per il percorso.
+
+percorsoviola(X2,Y2,N) | notpercorsoviola(X2,Y2,N) :- bloccoviola(X1,Y1), arco(X1,Y1,X2,Y2), N=2.
+percorsoviola(X2,Y2,N) | notpercorsoviola(X2,Y2,N) :- percorsoviola(X1,Y1,N), arco(X1,Y1,X2,Y2), not fineviola(X1,Y1), N=2.
+visitatoviola(X,Y) :- percorsoviola(X,Y,_).
+:- fineviola(X,Y), not visitatoviola(X,Y).
+:~ #count{X,Y: percorsoviola(X,Y,_)}=K. [K@2]
+
+percorsogiallo(X2,Y2,N) | notpercorsogiallo(X2,Y2,N) :- bloccogiallo(X1,Y1), arco(X1,Y1,X2,Y2), N=3.
+percorsogiallo(X2,Y2,N) | notpercorsogiallo(X2,Y2,N) :- percorsogiallo(X1,Y1,N), arco(X1,Y1,X2,Y2), not finegiallo(X1,Y1), N=3.
+visitatogiallo(X,Y) :- percorsogiallo(X,Y,_).
+:- finegiallo(X,Y), not visitatogiallo(X,Y).
+:~ #count{X,Y: percorsogiallo(X,Y,_)}=K. [K@3]
+
+pblu(X2,Y2,N) | notpblu(X2,Y2,N) :- pallinoblu(X1,Y1), arco(X1,Y1,X2,Y2), N=1.
+pblu(X2,Y2,N) | notpblu(X2,Y2,N) :- pblu(X1,Y1,N), arco(X1,Y1,X2,Y2), not bloccoblu(X1,Y1), N=1.
+visblu(X,Y) :- pblu(X,Y,_).
+:- bloccoblu(X,Y), not visblu(X,Y).
+:~ #count{X,Y: pblu(X,Y,_)}=K. [K@4]
+
+pviola(X2,Y2,N) | notpviola(X2,Y2,N) :- pallinoviola(X1,Y1), arco(X1,Y1,X2,Y2), N=2.
+pviola(X2,Y2,N) | notpviola(X2,Y2,N) :- pviola(X1,Y1,N), arco(X1,Y1,X2,Y2), not bloccoviola(X1,Y1), N=2.
+visviola(X,Y) :- pviola(X,Y,_).
+:- bloccoviola(X,Y), not visviola(X,Y).
+:~ #count{X,Y: pviola(X,Y,_)}=K. [K@5]
+
+pgiallo(X2,Y2,N) | notpgiallo(X2,Y2,N) :- pallinogiallo(X1,Y1), arco(X1,Y1,X2,Y2), N=3.
+pgiallo(X2,Y2,N) | notpgiallo(X2,Y2,N) :- pgiallo(X1,Y1,N), arco(X1,Y1,X2,Y2), not bloccogiallo(X1,Y1), N=3.
+visgiallo(X,Y) :- pgiallo(X,Y,_).
+:- bloccogiallo(X,Y), not visgiallo(X,Y).
+:~ #count{X,Y: pgiallo(X,Y,_)}=K. [K@6]

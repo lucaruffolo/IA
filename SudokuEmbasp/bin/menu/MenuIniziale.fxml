@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane fx:id="anchorPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="480.0" prefWidth="720.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="menu.MenuIniziale">
+   <children>
+      <Label fx:id="lbl" layoutX="269.0" layoutY="35.0" prefHeight="64.0" prefWidth="184.0" text="CCMMYY" textAlignment="CENTER">
+         <font>
+            <Font size="43.0" />
+         </font>
+      </Label>
+      <Button fx:id="bttGioca" layoutX="256.0" layoutY="145.0" mnemonicParsing="false" onAction="#clickBttGioca" prefHeight="95.0" prefWidth="210.0" text="GIOCA">
+         <font>
+            <Font size="38.0" />
+         </font>
+      </Button>
+      <Button fx:id="bttEsci" layoutX="309.0" layoutY="383.0" mnemonicParsing="false" onAction="#clickBttEsci" prefHeight="25.0" prefWidth="103.0" text="ESCI" />
+   </children>
+</AnchorPane>
